@@ -1,0 +1,28 @@
+.modal {
+  background-color: rgba(0, 0, 0, 0.331);
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+
+  & > form {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    width: min(50rem, 50vw);
+
+    & section {
+      margin-top: 1rem;
+
+      & > textarea {
+        height: 10rem;
+        resize: none;
+      }
+    }
+  }
+}

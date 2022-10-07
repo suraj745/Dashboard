@@ -8,6 +8,7 @@ import ForgotPassword from "./forgotpassword";
 import OTP from "./otp";
 import LockScreen from "./lockscreen";
 import ApplyJobs from "./ApplyJob";
+import BusinessForm from "../_components/business profile/BusinessForm";
 
 //Main App
 import DefaultLayout from "./Sidebar/DefaultLayout";
@@ -95,6 +96,7 @@ export default class App extends Component {
         <Route path="/tasks" component={Tasklayout} />
         <Route path="/email" component={Emaillayout} />
         <Route path="/conversation" component={chatlayout} />
+        <Route path="/business-form" component={BusinessForm} />
 
         <Route path="/ui-components" component={uicomponents} />
         <Route path="/error-404" component={Error404} />

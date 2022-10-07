@@ -220,12 +220,14 @@ const Registrationpage = (props) => {
                     <small>{errors?.repeatPassword?.message}</small>
                   </div>
                   <div className="form-group text-center">
-                    <button
-                      className="btn btn-primary account-btn"
-                      type="submit"
-                    >
-                      Register
-                    </button>
+                    <Link to="/business-form">
+                      <button
+                        className="btn btn-primary account-btn"
+                        type="submit"
+                      >
+                        Register
+                      </button>
+                    </Link>
                   </div>
                 </form>
                 <div className="account-footer">

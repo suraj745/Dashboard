@@ -11,13 +11,17 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { alphaNumericPattern, emailrgx } from "../constant";
 
+import axios from "axios";
+
+import apis from "../constant/apis";
+
 const schema = yup.object({
   email: yup
     .string()
     .matches(emailrgx, "Email is required")
     .required("Email is required")
     .trim(),
-  password: yup.string().min(6).max(6).required("Password is required").trim(),
+  password: yup.string().min(6).max(50).required("Password is required").trim(),
 });
 
 const Loginpage = (props) => {
@@ -42,16 +46,29 @@ const Loginpage = (props) => {
   });
 
   const onSubmit = (data) => {
-    console.log("data", data);
+    // console.log("data", data);
 
-    if (data.password != "123456") {
+    axios.post(apis.loginUser, {
+      email: data.email,
+      password: data.password
+    }).then(data => {
+      // console.log(data.data.data);
+      localStorage.setItem('token', data.data.data);
+      window.location.href = "/"
+    }).catch(error => {
       setError("password", {
-        message: "password is mismatch",
+        message: error.response.data.data,
       });
-    } else {
-      clearErrors("password");
-      props.history.push("/app/main/dashboard");
-    }
+    })
+
+    // if (data.password != "123456") {
+    //   setError("password", {
+    //     message: "password is mismatch",
+    //   });
+    // } else {
+    //   clearErrors("password");
+    //   // props.history.push("/app/main/dashboard");
+    // }
   };
 
   const onEyeClick = () => {
@@ -89,9 +106,8 @@ const Loginpage = (props) => {
                       control={control}
                       render={({ field: { value, onChange } }) => (
                         <input
-                          className={`form-control  ${
-                            errors?.email ? "error-input" : ""
-                          }`}
+                          className={`form-control  ${errors?.email ? "error-input" : ""
+                            }`}
                           type="text"
                           value={value}
                           onChange={onChange}
@@ -120,18 +136,16 @@ const Loginpage = (props) => {
                         <div className="pass-group">
                           <input
                             type={eye ? "password" : "text"}
-                            className={`form-control  ${
-                              errors?.password ? "error-input" : ""
-                            }`}
+                            className={`form-control  ${errors?.password ? "error-input" : ""
+                              }`}
                             value={value}
                             onChange={onChange}
                             autoComplete="false"
                           />
                           <span
                             onClick={onEyeClick}
-                            className={`fa toggle-password" ${
-                              eye ? "fa-eye-slash" : "fa-eye"
-                            }`}
+                            className={`fa toggle-password" ${eye ? "fa-eye-slash" : "fa-eye"
+                              }`}
                           />
                         </div>
                       )}

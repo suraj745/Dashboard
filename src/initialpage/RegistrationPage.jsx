@@ -11,6 +11,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { alphaNumericPattern, emailrgx } from "../constant";
 
+import axios from "axios"
+import apis from "../constant/apis"
+
+const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+
 const schema = yup
   .object({
     email: yup
@@ -21,11 +26,18 @@ const schema = yup
     password: yup
       .string()
       .min(6)
-      .max(6)
+      .max(50)
       .required("Password is required")
       .trim(),
-
     repeatPassword: yup.string().required("ConfirmPassword is required").trim(),
+    fullname: yup
+      .string()
+      .min(4)
+      .max(50)
+      .required("Full name is required")
+      .trim(),
+    phonenumber: yup
+      .string().matches(phoneRegExp, 'Phone number is not valid')
   })
   .required();
 
@@ -42,6 +54,8 @@ const Registrationpage = (props) => {
     email: "admin@dreamguys.co.in",
     password: "123456",
   });
+
+  const [axiosError, setAxiosError] = useState("");
 
   const {
     handleSubmit,
@@ -61,8 +75,21 @@ const Registrationpage = (props) => {
         message: "password is mismatch",
       });
     } else {
+      axios.post(apis.addUser, {
+        full_name: data.fullname,
+        phone: data.phonenumber,
+        email: data.email,
+        password: data.password
+      }).then( data => {
+        console.log(data.data.data);
+        localStorage.setItem('token', data.data.data);
+        window.location.href = "/"
+      }).catch( error => {
+        console.log(error);
+        setAxiosError(error.response.data.data)
+      })
       clearErrors("password");
-      props.history.push("Bussiness");
+      // props.history.push("Bussiness");
     }
   };
   const onEyeClick = () => {
@@ -112,19 +139,18 @@ const Registrationpage = (props) => {
                       control={control}
                       render={({ field: { value, onChange } }) => (
                         <input
-                          className={`form-control  ${
-                            errors?.fullname ? "error-input" : ""
-                          }`}
+                          className={`form-control  ${errors?.fullname ? "error-input" : ""
+                            }`}
                           type="text"
                           value={value}
                           onChange={onChange}
                           autoComplete="false"
                         />
                       )}
-                      defaultValue="admin@dreamguys.co.in"
+                      defaultValue="Dream Guys"
                     />
 
-                    <small>{errors?.email?.message}</small>
+                    <small>{errors?.fullname?.message}</small>
                   </div>
                   <div className="form-group">
                     <label>Email</label>
@@ -133,9 +159,8 @@ const Registrationpage = (props) => {
                       control={control}
                       render={({ field: { value, onChange } }) => (
                         <input
-                          className={`form-control  ${
-                            errors?.email ? "error-input" : ""
-                          }`}
+                          className={`form-control  ${errors?.email ? "error-input" : ""
+                            }`}
                           type="text"
                           value={value}
                           onChange={onChange}
@@ -155,16 +180,15 @@ const Registrationpage = (props) => {
                       control={control}
                       render={({ field: { value, onChange } }) => (
                         <input
-                          className={`form-control  ${
-                            errors?.email ? "error-input" : ""
-                          }`}
+                          className={`form-control  ${errors?.email ? "error-input" : ""
+                            }`}
                           type="text"
                           value={value}
                           onChange={onChange}
                           autoComplete="false"
                         />
                       )}
-                      defaultValue="ex-93484847477"
+                      defaultValue="93484847477"
                     />
 
                     <small>{errors?.phonenumber?.message}</small>
@@ -179,18 +203,16 @@ const Registrationpage = (props) => {
                         <div className="pass-group">
                           <input
                             type={eye ? "password" : "text"}
-                            className={`form-control  ${
-                              errors?.password ? "error-input" : ""
-                            }`}
+                            className={`form-control  ${errors?.password ? "error-input" : ""
+                              }`}
                             value={value}
                             onChange={onChange}
                             autoComplete="false"
                           />
                           <span
                             onClick={onEyeClick}
-                            className={`fa toggle-password" ${
-                              eye ? "fa-eye-slash" : "fa-eye"
-                            }`}
+                            className={`fa toggle-password" ${eye ? "fa-eye-slash" : "fa-eye"
+                              }`}
                           />
                         </div>
                       )}
@@ -206,9 +228,8 @@ const Registrationpage = (props) => {
                       control={control}
                       render={({ field: { value, onChange } }) => (
                         <input
-                          className={`form-control  ${
-                            errors?.repeatPassword ? "error-input" : ""
-                          }`}
+                          className={`form-control  ${errors?.repeatPassword ? "error-input" : ""
+                            }`}
                           type="text"
                           value={value}
                           onChange={onChange}
@@ -220,14 +241,13 @@ const Registrationpage = (props) => {
                     <small>{errors?.repeatPassword?.message}</small>
                   </div>
                   <div className="form-group text-center">
-                    <Link to="/business-form">
-                      <button
-                        className="btn btn-primary account-btn"
-                        type="submit"
-                      >
-                        Register
-                      </button>
-                    </Link>
+                    <small>{axiosError}</small>
+                    <button
+                      className="btn btn-primary account-btn"
+                      type="submit"
+                    >
+                      Register
+                    </button>
                   </div>
                 </form>
                 <div className="account-footer">

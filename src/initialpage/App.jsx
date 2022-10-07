@@ -23,6 +23,8 @@ import Error404 from "../MainPage/Pages/ErrorPage/error404";
 import Error500 from "../MainPage/Pages/ErrorPage/error500";
 import Bussiness from "./Bussiness/Bussiness";
 
+import isLoggedIn from "../constant/isLoggedIn";
+
 // import 'Assets/css/font-awesome.min.css';
 
 // window.jQuery = $;
@@ -72,36 +74,47 @@ export default class App extends Component {
     //     return (<Redirect to={'/app/main/dashboard'} />);
     // }
     // }
-    if (location.pathname === "/") {
+    if (location.pathname === "/" && isLoggedIn) {
       return <Redirect to={"/app/main/dashboard"} />;
     }
-    return (
-      <Switch>
-        {/* <InitialPath
-                        path={`${match.url}app`}
-                        // authUser={user}
-                        component={DefaultLayout}
-                    /> */}
-        {/* <Redirect exact from={`${match.url}/`} to={`${match.url}/login`} /> */}
-        <Route path="/Bussiness" component={Bussiness} />
-        <Route path="/login" component={LoginPage} />
-        <Route path="/forgotpassword" component={ForgotPassword} />
-        <Route path="/register" component={RegistrationPage} />
-        <Route path="/otp" component={OTP} />
-        <Route path="/lockscreen" component={LockScreen} />
-        <Route path="/applyjob" component={ApplyJobs} />
+    if (location.pathname === "/" && !isLoggedIn) {
+      return <Redirect to={"/login"} />;
+    }
+    if (isLoggedIn) {
+      console.log(isLoggedIn);
+      return (
+        <Switch>
+          {/* <InitialPath
+                          path={`${match.url}app`}
+                          // authUser={user}
+                          component={DefaultLayout}
+                      /> */}
+          {/* <Redirect exact from={`${match.url}/`} to={`${match.url}/login`} /> */}
+          <Route path="/Bussiness" component={Bussiness} />
+          <Route path="/lockscreen" component={LockScreen} />
+          <Route path="/applyjob" component={ApplyJobs} />
 
-        <Route path="/app" component={DefaultLayout} />
-        <Route path="/settings" component={Settinglayout} />
-        <Route path="/tasks" component={Tasklayout} />
-        <Route path="/email" component={Emaillayout} />
-        <Route path="/conversation" component={chatlayout} />
-        <Route path="/business-form" component={BusinessForm} />
+          <Route path="/app" component={DefaultLayout} />
+          <Route path="/settings" component={Settinglayout} />
+          <Route path="/tasks" component={Tasklayout} />
+          <Route path="/email" component={Emaillayout} />
+          <Route path="/conversation" component={chatlayout} />
+          <Route path="/business-form" component={BusinessForm} />
 
-        <Route path="/ui-components" component={uicomponents} />
-        <Route path="/error-404" component={Error404} />
-        <Route path="/error-500" component={Error500} />
-      </Switch>
-    );
+          <Route path="/ui-components" component={uicomponents} />
+          <Route path="/error-404" component={Error404} />
+          <Route path="/error-500" component={Error500} />
+        </Switch>
+      );
+    } else {
+      return (
+        <Switch>
+          <Route path="/login" component={LoginPage} />
+          <Route path="/forgotpassword" component={ForgotPassword} />
+          <Route path="/register" component={RegistrationPage} />
+          <Route path="/otp" component={OTP} />
+        </Switch>
+      );
+    }
   }
 }

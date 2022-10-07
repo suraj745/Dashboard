@@ -10,10 +10,10 @@ const Invoicecreate = () => {
   const cgst = GST / 2;
   const amount = Quantity * Rate;
   const f_Gst = amount * GST;
-
   const final_Gst = f_Gst / 100;
   const amounta = amount + final_Gst;
 
+  console.log(invoices);
   // setAmount(amounta);
   useEffect(() => {
     if ($(".select").length > 0) {
@@ -239,7 +239,12 @@ const Invoicecreate = () => {
                               className="text-success font-18"
                               title="Add"
                             >
-                              <i className="fa fa-plus" />
+                              <i
+                                className="fa fa-plus"
+                                onClick={() => {
+                                  invoice.push(1);
+                                }}
+                              />
                             </a>
                             <br></br>
                             <a
@@ -251,6 +256,7 @@ const Invoicecreate = () => {
                             </a>
                           </td>
                         </tr>
+
                         <tr></tr>
                       </tbody>
                     </table>

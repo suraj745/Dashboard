@@ -250,7 +250,87 @@ const Proforma_invoicesCreate = () => {
                             </a>
                           </td>
                         </tr>
-                        <tr></tr>
+
+                        <tr>
+                          <td>1</td>
+                          <td>
+                            <input
+                              className="form-control"
+                              type="text"
+                              style={{ minWidth: "150px" }}
+                            />
+                          </td>
+
+                          <td>
+                            <input
+                              onChange={(e) => setGST(e.target.value)}
+                              className="form-control"
+                              style={{ width: "80px" }}
+                              type="text"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              className="form-control"
+                              style={{ width: "80px" }}
+                              type="text"
+                              onChange={(e) => setQuantity(e.target.value)}
+                            />
+                          </td>
+
+                          <td>
+                            <input
+                              className="form-control"
+                              style={{ width: "80px" }}
+                              type="text"
+                              onChange={(e) => setRate(e.target.value)}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              className="form-control"
+                              style={{ width: "80px" }}
+                              type="text"
+                              readOnly
+                              value={cgst}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              className="form-control"
+                              style={{ width: "80px" }}
+                              type="text"
+                              readOnly
+                              value={cgst}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              className="form-control"
+                              readOnly
+                              style={{ width: "120px" }}
+                              type="text"
+                              value={amounta}
+                            />
+                          </td>
+                          <td>
+                            <a
+                              href="javascript:void(0)"
+                              className="text-success font-18"
+                              title="Add"
+                            >
+                              <i className="fa fa-plus" />
+                            </a>
+                            <br></br>
+                            <a
+                              href="javascript:void(0)"
+                              className="text-danger font-18"
+                              title="Remove"
+                            >
+                              <i className="fa fa-trash-o" />
+                            </a>
+                          </td>
+                        </tr>
                       </tbody>
                     </table>
                   </div>

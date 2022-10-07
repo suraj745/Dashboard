@@ -64,12 +64,6 @@ const Loginpage = (props) => {
         <meta name="description" content="Login page" />
       </Helmet>
       <div className="account-content">
-<<<<<<< HEAD
-        <div className="container">
-          {/* Account Logo */}
-          <div className="account-logo">
-            <Link>
-=======
         <Link to="/applyjob/joblist" className="btn btn-primary apply-btn">
           Apply Job
         </Link>
@@ -77,7 +71,6 @@ const Loginpage = (props) => {
           {/* Account Logo */}
           <div className="account-logo">
             <Link to="/app/main/dashboard">
->>>>>>> 91a59f7115f98472cf51271a4c7c540b490941d8
               <img src={Applogo} alt="Dreamguy's Technologies" />
             </Link>
           </div>
@@ -157,7 +150,7 @@ const Loginpage = (props) => {
                 </form>
                 <div className="account-footer">
                   <p>
-                    Don't have an account yet?{" "}
+                    Don't have an account yet ?
                     <Link to="/register">Register</Link>
                   </p>
                 </div>

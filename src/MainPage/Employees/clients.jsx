@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import {
   Avatar_19,
   Avatar_29,
@@ -22,6 +23,45 @@ const Clients = () => {
       });
     }
   });
+
+  // const clientForm = yup.object().shape({
+  //   selectCountry: yup.string().required(),
+  //   uniquekey: yup.string(),
+  //   businessName: yup.string().required(),
+
+  //   email: yup.string().email().required(),
+  //   phoneNumber: yup.string().required().__inputType,
+  //   communicationStreetAddress: yup.string.required(),
+  //   shippingName: yup.string().required(),
+  //   shippingStreetAddress: yup.string().required(),
+  //   shippingCountry: yup.string().required(),
+  // });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({});
+
+  console.log(errors);
+
+  const onSubmit = async (data) => {
+    console.log(data);
+    try {
+      const res = await fetch(`http://localhost:5000/client`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const data2 = await res.json();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="page-wrapper">
       <Helmet>
@@ -588,7 +628,7 @@ const Clients = () => {
               </button>
             </div>
             <div className="modal-body">
-              <form>
+              <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="row">
                   <div className="col-md-6">
                     <div className="form-group">
@@ -596,6 +636,7 @@ const Clients = () => {
                         Select Country <span className="text-danger">*</span>
                       </label>
                       <select
+                        {...register("selectCountry")}
                         class="form-select form-control"
                         style={{ height: "2.5rem" }}
                         aria-label="Default select example"
@@ -732,7 +773,9 @@ const Clients = () => {
                         <option value="Hong Kong">Hong Kong</option>
                         <option value="Hungary">Hungary</option>
                         <option value="Iceland">Iceland</option>
-                        <option value="India">India</option>
+                        <option value="India" selected>
+                          India
+                        </option>
                         <option value="Indonesia">Indonesia</option>
                         <option value="Iran">Iran (Islamic Republic of)</option>
                         <option value="Iraq">Iraq</option>
@@ -755,9 +798,7 @@ const Clients = () => {
                           Lao People's Democratic Republic
                         </option>
                         <option value="Latvia">Latvia</option>
-                        <option value="Lebanon" selected>
-                          Lebanon
-                        </option>
+                        <option value="Lebanon">Lebanon</option>
                         <option value="Lesotho">Lesotho</option>
                         <option value="Liberia">Liberia</option>
                         <option value="Libyan Arab Jamahiriya">
@@ -929,7 +970,11 @@ const Clients = () => {
                   <div className="col-md-6">
                     <div className="form-group">
                       <label className="col-form-label">Unique Key</label>
-                      <input className="form-control" type="text" />
+                      <input
+                        className="form-control"
+                        type="text"
+                        {...register("uniquekey")}
+                      />
                     </div>
                   </div>
                   <div className="col-md-6">
@@ -937,7 +982,11 @@ const Clients = () => {
                       <label className="col-form-label">
                         Business Name <span className="text-danger">*</span>
                       </label>
-                      <input className="form-control" type="text" />
+                      <input
+                        className="form-control"
+                        type="text"
+                        {...register("businessName")}
+                      />
                     </div>
                   </div>
                   <div className="col-md-6">
@@ -945,19 +994,30 @@ const Clients = () => {
                       <label className="col-form-label">
                         Business Alias (Nick Name)
                       </label>
-                      <input className="form-control floating" />
+                      <input
+                        className="form-control floating"
+                        {...register("BusinessAlias")}
+                      />
                     </div>
                   </div>
                   <div className="col-md-6">
                     <div className="form-group">
                       <label className="col-form-label">Email</label>
-                      <input className="form-control" type="email" />
+                      <input
+                        className="form-control"
+                        type="email"
+                        {...register("email")}
+                      />
                     </div>
                   </div>
                   <div className="col-md-6">
                     <div className="form-group">
                       <label className="col-form-label">Phone Number</label>
-                      <input className="form-control" type={"number"} />
+                      <input
+                        className="form-control"
+                        type={"number"}
+                        {...register("phoneNumber")}
+                      />
                     </div>
                   </div>
                   <div className="col-md-6">
@@ -965,7 +1025,11 @@ const Clients = () => {
                       <label className="col-form-label">
                         VAT Registration Number
                       </label>
-                      <input className="form-control floating" type="text" />
+                      <input
+                        className="form-control floating"
+                        type="text"
+                        {...register("VATRegistrationNumber")}
+                      />
                     </div>
                   </div>
                 </div>
@@ -976,7 +1040,7 @@ const Clients = () => {
                   <div className="col-md-6">
                     <div className="form-group">
                       <label className="col-form-label">Business Logo</label>
-                      <input type={"file"} />
+                      <input type={"file"} {...register("businessLogo")} />
                     </div>
                   </div>
                 </section>
@@ -992,20 +1056,32 @@ const Clients = () => {
                   <div className="col-md-6">
                     <div className="form-group">
                       <label className="col-form-label">Street Address</label>
-                      <input className="form-control" type="text" />
+                      <input
+                        className="form-control"
+                        type="text"
+                        {...register("communicationStreetAddress")}
+                      />
                     </div>
                   </div>
 
                   <div className="col-md-6">
                     <div className="form-group">
                       <label className="col-form-label">City</label>
-                      <input className="form-control" type="text" />
+                      <input
+                        className="form-control"
+                        type="text"
+                        {...register("communicationCity")}
+                      />
                     </div>
                   </div>
                   <div className="col-md-6">
                     <div className="form-group">
                       <label className="col-form-label">State</label>
-                      <input className="form-control" type="text" />
+                      <input
+                        className="form-control"
+                        type="text"
+                        {...register("communicationState")}
+                      />
                     </div>
                   </div>
 
@@ -1014,7 +1090,11 @@ const Clients = () => {
                       <label className="col-form-label">
                         Postal Code / Zip Code
                       </label>
-                      <input className="form-control" type="text" />
+                      <input
+                        className="form-control"
+                        type="text"
+                        {...register("communicationPostalCode")}
+                      />
                     </div>
                   </div>
                 </section>
@@ -1032,6 +1112,7 @@ const Clients = () => {
                         className="form-control"
                         type="text"
                         placeholder="Name"
+                        {...register("shippingName")}
                       />
                     </div>
                   </div>
@@ -1046,6 +1127,7 @@ const Clients = () => {
                         className="form-control"
                         type="text"
                         placeholder="Street Address"
+                        {...register("shippingStreetAddress")}
                       />
                     </div>
                   </div>
@@ -1056,6 +1138,7 @@ const Clients = () => {
                         className="form-control"
                         type="text"
                         placeholder="State"
+                        {...register("shippingState")}
                       />
                     </div>
                   </div>
@@ -1072,6 +1155,7 @@ const Clients = () => {
                         className="form-control"
                         type="text"
                         placeholder="Select Country "
+                        {...register("shippingCountry")}
                       />
                     </div>
                   </div>
@@ -1083,6 +1167,7 @@ const Clients = () => {
                         className="form-control"
                         type="text"
                         placeholder="City"
+                        {...register("shippingCity")}
                       />
                     </div>
                   </div>
@@ -1096,6 +1181,7 @@ const Clients = () => {
                         className="form-control"
                         type="text"
                         placeholder="Postal Code / Zip Code"
+                        {...register("shippingPostalCode")}
                       />
                     </div>
                   </div>

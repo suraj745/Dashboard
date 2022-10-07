@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import styles from "./leads.module.scss";
+import { useForm } from "react-hook-form";
 import {
   Avatar_11,
   Avatar_09,
@@ -32,6 +33,27 @@ const Leads = () => {
       created: "10 hours ago",
     },
   ]);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = async (data) => {
+    console.log(data);
+    try {
+      const res = await fetch(`http://localhost:5000/leads`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const columns = [
     {
@@ -76,6 +98,7 @@ const Leads = () => {
     {
       title: "Assigned Staff",
       dataIndex: "assignedstaff",
+
       render: (text, record) => (
         <ul className="team-members">
           <li>
@@ -264,7 +287,10 @@ const Leads = () => {
 
       {modal && (
         <div class={styles.modal} onClick={() => setModal(false)}>
-          <form onClick={(e) => e.stopPropagation()}>
+          <form
+            onClick={(e) => e.stopPropagation()}
+            onSubmit={handleSubmit(onSubmit)}
+          >
             <h3>Contact </h3>
 
             <section className="row">
@@ -273,6 +299,8 @@ const Leads = () => {
                   Organization Name
                 </label>
                 <input
+                  placeholder="Organization Name"
+                  {...register("organizationName")}
                   type="text"
                   class="form-control"
                   id="exampleInputEmail1"
@@ -285,6 +313,7 @@ const Leads = () => {
                   Contact Name
                 </label>
                 <input
+                  {...register("contactName")}
                   type="text"
                   placeholder="Contact Name"
                   class="form-control"
@@ -298,6 +327,7 @@ const Leads = () => {
                   Designation
                 </label>
                 <input
+                  {...register("designation")}
                   type="text"
                   placeholder=" Designation
                   "
@@ -312,8 +342,9 @@ const Leads = () => {
                   Email
                 </label>
                 <input
+                  {...register("email")}
                   type="email"
-                  placeholder="Contact Name"
+                  placeholder="Email"
                   class="form-control"
                   id="exampleInputEmail1"
                   aria-describedby="emailHelp"
@@ -325,8 +356,9 @@ const Leads = () => {
                   Phone
                 </label>
                 <input
+                  {...register("contactName")}
                   type={"number"}
-                  placeholder="Contact Name"
+                  placeholder="Phone"
                   class="form-control"
                   id="exampleInputEmail1"
                   aria-describedby="emailHelp"
@@ -338,8 +370,9 @@ const Leads = () => {
                   Subject
                 </label>
                 <input
+                  {...register("subject")}
                   type={"text"}
-                  placeholder="Contact Name"
+                  placeholder="Subject"
                   class="form-control"
                   id="exampleInputEmail1"
                   aria-describedby="emailHelp"
@@ -351,6 +384,7 @@ const Leads = () => {
                   Message
                 </label>
                 <textarea
+                  {...register("message")}
                   type={"text"}
                   placeholder="Contact Name"
                   class="form-control"

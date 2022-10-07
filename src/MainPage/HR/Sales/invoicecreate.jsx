@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 
+const initialState = [{}];
+
 const Invoicecreate = () => {
   const [Amount, setAmount] = useState(0);
   const [GST, setGST] = useState(0);
@@ -10,10 +12,10 @@ const Invoicecreate = () => {
   const cgst = GST / 2;
   const amount = Quantity * Rate;
   const f_Gst = amount * GST;
+
   const final_Gst = f_Gst / 100;
   const amounta = amount + final_Gst;
 
-  console.log(invoices);
   // setAmount(amounta);
   useEffect(() => {
     if ($(".select").length > 0) {
@@ -239,12 +241,7 @@ const Invoicecreate = () => {
                               className="text-success font-18"
                               title="Add"
                             >
-                              <i
-                                className="fa fa-plus"
-                                onClick={() => {
-                                  invoice.push(1);
-                                }}
-                              />
+                              <i className="fa fa-plus" />
                             </a>
                             <br></br>
                             <a
@@ -256,7 +253,6 @@ const Invoicecreate = () => {
                             </a>
                           </td>
                         </tr>
-
                         <tr></tr>
                       </tbody>
                     </table>

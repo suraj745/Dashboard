@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 
-const Invoicecreate = () => {
+const Proforma_invoicesCreate = () => {
   const [Amount, setAmount] = useState(0);
   const [GST, setGST] = useState(0);
   const [Quantity, setQuantity] = useState(0);
@@ -14,7 +14,6 @@ const Invoicecreate = () => {
   const final_Gst = f_Gst / 100;
   const amounta = amount + final_Gst;
 
-  // setAmount(amounta);
   useEffect(() => {
     if ($(".select").length > 0) {
       $(".select").select2({
@@ -27,7 +26,7 @@ const Invoicecreate = () => {
   return (
     <div className="page-wrapper">
       <Helmet>
-        <title>Create Invoice</title>
+        <title>Proforma Invoice</title>
         <meta name="description" content="Login page" />
       </Helmet>
       {/* Page Content */}
@@ -36,12 +35,12 @@ const Invoicecreate = () => {
         <div className="page-header">
           <div className="row">
             <div className="col-sm-12">
-              <h3 className="page-title">Create Invoice</h3>
+              <h3 className="page-title">Proforma Invoice</h3>
               <ul className="breadcrumb">
                 <li className="breadcrumb-item">
                   <Link to="/app/main/dashboard">Dashboard</Link>
                 </li>
-                <li className="breadcrumb-item active">Create Invoice</li>
+                <li className="breadcrumb-item active">Proforma Invoice</li>
               </ul>
             </div>
           </div>
@@ -370,4 +369,4 @@ const Invoicecreate = () => {
     </div>
   );
 };
-export default Invoicecreate;
+export default Proforma_invoicesCreate;

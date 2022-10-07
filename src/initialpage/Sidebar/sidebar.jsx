@@ -255,11 +255,7 @@ const Sidebar = (props) => {
                   ""
                 )}
               </li> */}
-              <li className={pathname.includes("clients") ? "active" : ""}>
-                <Link to="/app/employees/clients">
-                  <i className="la la-users" /> <span>Clients</span>
-                </Link>
-              </li>
+
               {/* <li className="submenu">
                 <a
                   href="#"
@@ -314,82 +310,95 @@ const Sidebar = (props) => {
                   ""
                 )}
               </li> */}
-              <li className={pathname.includes("leads") ? "active" : ""}>
-                <Link to="/app/employees/leads">
-                  <i className="la la-user-secret" /> <span>Leads</span>
-                </Link>
-              </li>
-              {/* <li
-                className={
-                  pathname.includes("tickets")
-                    ? "active"
-                    : pathname.includes("ticket-view")
-                    ? "active"
-                    : ""
-                }
-              >
-                <Link to="/app/employees/tickets">
-                  <i className="la la-ticket" /> <span>Tickets</span>
-                </Link>
-              </li> */}
-              <li className="menu-title">
-                <span>Accounting</span>
-              </li>
+
               <li className="submenu">
-                <ul>
-                  <li>
-                    <Link
-                      className={pathname.includes("estimates") ? "active" : ""}
-                      to="/app/sales/estimates"
+                <a
+                  href="#"
+                  className={isSideMenu == "accounting" ? "subdrop" : ""}
+                  onClick={() =>
+                    toggleSidebar(
+                      isSideMenu == "accounting" ? "" : "accounting"
+                    )
+                  }
+                >
+                  <i className="la  la-male" /> <span>Profiles & Leads</span>{" "}
+                  <span className="menu-arrow" />
+                </a>
+                {isSideMenu == "accounting" ? (
+                  <ul>
+                    <li
+                      className={pathname.includes("clients") ? "active" : ""}
                     >
-                      Estimates
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className={pathname.includes("invoices") ? "active" : ""}
-                      to="/app/sales/invoices"
-                    >
-                      Invoices
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className={pathname.includes("payments") ? "active" : ""}
-                      to="/app/sales/payments"
-                    >
-                      Payments
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className={pathname.includes("expenses") ? "active" : ""}
-                      to="/app/sales/expenses"
-                    >
-                      Expenses
-                    </Link>
-                  </li>
-                  {/* <li>
+                      <Link to="/app/employees/clients">
+                        <i className="la la-users" /> <span>Clients</span>
+                      </Link>
+                    </li>
+                    <li className={pathname.includes("leads") ? "active" : ""}>
+                      <Link to="/app/employees/leads">
+                        <i className="la la-user-secret" /> <span>Leads</span>
+                      </Link>
+                    </li>
+                  </ul>
+                ) : (
+                  ""
+                )}
+              </li>
+
+              <li className="submenu">
+                <a
+                  href="#"
+                  className={isSideMenu == "accounting" ? "subdrop" : ""}
+                  onClick={() =>
+                    toggleSidebar(
+                      isSideMenu == "accounting" ? "" : "accounting"
+                    )
+                  }
+                >
+                  <i className="la la-files-o" /> <span>Accounting </span>{" "}
+                  <span className="menu-arrow" />
+                </a>
+                {isSideMenu == "accounting" ? (
+                  <ul>
+                    <li>
                       <Link
                         className={
-                          pathname.includes("provident-fund") ? "active" : ""
+                          pathname.includes("invoices") ? "active" : ""
                         }
-                        to="/app/sales/provident-fund"
+                        to="/app/sales/invoices"
                       >
-                        Provident Fund
+                        Invoices
                       </Link>
                     </li>
                     <li>
                       <Link
-                        className={pathname.includes("taxes") ? "active" : ""}
-                        to="/app/sales/taxes"
+                        className={
+                          pathname.includes("estimates") ||
+                          pathname.includes("sub-category")
+                            ? "active"
+                            : ""
+                        }
+                        to="/app/sales/estimates"
                       >
-                        Taxes
+                        quotations & Estimates
                       </Link>
-                    </li> */}
-                </ul>
+                    </li>
+
+                    <li>
+                      <Link
+                        className={
+                          pathname.includes("Proforma_invoices") ? "active" : ""
+                        }
+                        to="/app/sales/Proforma_invoices"
+                      >
+                        Proforma-invoices
+                      </Link>
+                    </li>
+                  </ul>
+                ) : (
+                  ""
+                )}
               </li>
-              <li className="submenu">
+              {/* <li className="submenu">
                 <a
                   href="#"
                   className={isSideMenu == "accounting" ? "subdrop" : ""}
@@ -449,7 +458,7 @@ const Sidebar = (props) => {
                 ) : (
                   ""
                 )}
-              </li>
+              </li> */}
               <li className="submenu">
                 <a
                   href="#"

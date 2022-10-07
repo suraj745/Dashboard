@@ -7,7 +7,7 @@ import "antd/dist/antd.css";
 import { itemRender, onShowSizeChange } from "../../paginationfunction";
 import "../../antdstyle.css";
 
-const Invoices = () => {
+const Proforma_invoices = () => {
   const [data, setData] = useState([
     {
       id: 1,
@@ -112,8 +112,7 @@ const Invoices = () => {
               <i className="fa fa-file-pdf-o m-r-5" /> Download
             </a>
             <a className="dropdown-item" href="#">
-              <i className="fa fa-trash-o m-r-5" />
-              Delete
+              <i className="fa fa-trash-o m-r-5" /> Delete
             </a>
           </div>
         </div>
@@ -123,7 +122,7 @@ const Invoices = () => {
   return (
     <div className="page-wrapper">
       <Helmet>
-        <title>Invoices - HRMS Admin Template</title>
+        <title>Proforma Invoice</title>
         <meta name="description" content="Login page" />
       </Helmet>
       {/* Page Content */}
@@ -137,18 +136,20 @@ const Invoices = () => {
                 <li className="breadcrumb-item">
                   <Link to="/app/main/dashboard">Dashboard</Link>
                 </li>
-                <li className="breadcrumb-item active">Invoices</li>
+                <li className="breadcrumb-item active">Proforma Invoice</li>
               </ul>
             </div>
             <div className="col-auto float-end ml-auto">
-              <Link to="/app/sales/invoices-create" className="btn add-btn">
-                <i className="fa fa-plus" /> Create Invoice
+              <Link
+                to="/app/sales/Proforma_invoicesCreate"
+                className="btn add-btn"
+              >
+                <i className="fa fa-plus" /> Create Proforma Invoice
               </Link>
             </div>
           </div>
         </div>
         {/* /Page Header */}
-
         <div className="row">
           <div className="col-md-12">
             <div className="table-responsive">
@@ -178,4 +179,4 @@ const Invoices = () => {
   );
 };
 
-export default Invoices;
+export default Proforma_invoices;

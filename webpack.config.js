@@ -51,7 +51,7 @@ module.exports = {
     contentBase: "./src/index.js",
     host: "127.0.0.1",
     compress: true,
-    port: 3000, // port number
+    port: 3001, // port number
     historyApiFallback: true,
     quiet: true,
   },

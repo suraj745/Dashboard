@@ -5,11 +5,11 @@
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
-import { Applogo } from "../Entryfile/imagepath.jsx";
+import { Applogo } from "../../Entryfile/imagepath.jsx";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { alphaNumericPattern, emailrgx } from "../constant";
+import { alphaNumericPattern, emailrgx } from "../../constant";
 
 const schema = yup
   .object({
@@ -29,7 +29,7 @@ const schema = yup
   })
   .required();
 
-const Registrationpage = (props) => {
+const Bussiness = (props) => {
   /**
    * On User Login
    */
@@ -62,7 +62,7 @@ const Registrationpage = (props) => {
       });
     } else {
       clearErrors("password");
-      props.history.push("Bussiness");
+      props.history.push("login");
     }
   };
   const onEyeClick = () => {
@@ -86,14 +86,17 @@ const Registrationpage = (props) => {
   return (
     <>
       <Helmet>
-        <title>Register</title>
+        <title>Register - HRMS Admin Template</title>
         <meta name="description" content="Login page" />
       </Helmet>
       <div className="account-content">
+        <Link to="/applyjob/joblist" className="btn btn-primary apply-btn">
+          Apply Job
+        </Link>
         <div className="container">
           {/* Account Logo */}
           <div className="account-logo">
-            <Link>
+            <Link to="/app/main/dashboard">
               <img src={Applogo} alt="Dreamguy's Technologies" />
             </Link>
           </div>
@@ -228,11 +231,6 @@ const Registrationpage = (props) => {
                     </button>
                   </div>
                 </form>
-                <div className="account-footer">
-                  <p>
-                    Already have an account? <Link to="/login">Login</Link>
-                  </p>
-                </div>
               </div>
               {/* /Account Form */}
             </div>
@@ -243,4 +241,4 @@ const Registrationpage = (props) => {
   );
 };
 
-export default Registrationpage;
+export default Bussiness;

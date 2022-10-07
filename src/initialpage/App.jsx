@@ -20,6 +20,7 @@ import uicomponents from "../MainPage/UIinterface/components";
 //Error Page
 import Error404 from "../MainPage/Pages/ErrorPage/error404";
 import Error500 from "../MainPage/Pages/ErrorPage/error500";
+import Bussiness from "./Bussiness/Bussiness";
 
 // import 'Assets/css/font-awesome.min.css';
 
@@ -81,6 +82,7 @@ export default class App extends Component {
                         component={DefaultLayout}
                     /> */}
         {/* <Redirect exact from={`${match.url}/`} to={`${match.url}/login`} /> */}
+        <Route path="/Bussiness" component={Bussiness} />
         <Route path="/login" component={LoginPage} />
         <Route path="/forgotpassword" component={ForgotPassword} />
         <Route path="/register" component={RegistrationPage} />

@@ -16,6 +16,11 @@ import {headerlogo,lnEnglish,lnFrench,lnSpanish,lnGerman, Avatar_02,Avatar_03,Av
       props.onMenuClick()
     }
 
+    const logOut = () => {
+      localStorage.removeItem('token');
+      window.location.href = "/"
+    }
+
     let pathname = location.pathname
     
       return (
@@ -274,7 +279,7 @@ import {headerlogo,lnEnglish,lnFrench,lnSpanish,lnGerman, Avatar_02,Avatar_03,Av
             <div className="dropdown-menu">
               <Link className="dropdown-item" to="/app/profile/employee-profile">My Profile</Link>
               <Link className="dropdown-item" to="/settings/companysetting">Settings</Link>
-              <Link className="dropdown-item" to="/login">Logout</Link>
+              <button className="dropdown-item" onClick={logOut}>Logout</button>
             </div>
           </li>
         </ul>
@@ -285,7 +290,7 @@ import {headerlogo,lnEnglish,lnFrench,lnSpanish,lnGerman, Avatar_02,Avatar_03,Av
           <div className="dropdown-menu dropdown-menu-right">
             <Link className="dropdown-item" to="/app/profile/employee-profile">My Profile</Link>
             <Link className="dropdown-item" to="/settings/companysetting">Settings</Link>
-            <Link className="dropdown-item" to="/login">Logout</Link>
+            <button className="dropdown-item" onClick={logOut}>Logout</button>
           </div>
         </div>
         {/* /Mobile Menu */}

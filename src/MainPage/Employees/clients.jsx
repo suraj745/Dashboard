@@ -48,7 +48,7 @@ const Clients = () => {
   const onSubmit = async (data) => {
     console.log(data);
     try {
-      const res = await fetch(`http://localhost:5000/client`, {
+      const res = await fetch(`http://localhost:5001/api/client/add`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

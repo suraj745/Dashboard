@@ -43,7 +43,7 @@ const Leads = () => {
   const onSubmit = async (data) => {
     console.log(data);
     try {
-      const res = await fetch(`http://localhost:5000/leads`, {
+      const res = await fetch(`http://localhost:5001/api/lead/add`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

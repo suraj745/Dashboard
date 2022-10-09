@@ -1043,6 +1043,15 @@ const Sidebar = (props) => {
                         Lead_edit{" "}
                       </Link>
                     </li>
+                    <li>
+                      <Link
+                        className={pathname.includes("client-") ? "active" : ""}
+                        to="/app/profile/InvoiceTemplate"
+                      >
+                        {" "}
+                        InvoiceTemplate{" "}
+                      </Link>
+                    </li>
                   </ul>
                 ) : (
                   ""

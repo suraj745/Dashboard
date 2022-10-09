@@ -97,6 +97,8 @@ const Invoicecreate = () => {
 
   const [state, dispatch] = useReducer(reducer, initialState);
   console.log("state", state);
+  const [total, settotal] = useState([]);
+  const [cgst1, setcgst1] = useState([]);
   const [formvalue, setFormValues] = useState([
     {
       item: "",
@@ -109,7 +111,10 @@ const Invoicecreate = () => {
     },
   ]);
 
-  const cgst = state.GST / 2;
+  // const cgst = formvalue[0].gst / 2;
+  // formvalue[0].cgst = cgst;
+  const cgst = 0;
+
   const amount = state.Quantity * state.Rate;
   const f_Gst = amount * state.GST;
   const final_Gst = f_Gst / 100;
@@ -123,8 +128,16 @@ const Invoicecreate = () => {
       });
     }
   });
+  // setFormValues((item) => [
+  //   ...item,
+  //   {
+  //     cgst: cgst,
+  //     sgcst: "",
+  //     amount: "",
+  //   },
+  // ]);
 
-  console.log(datalist);
+  console.log(formvalue.GST, "------------");
   const addFormFields = () => {
     setFormValues((item) => [
       ...item,
@@ -142,16 +155,39 @@ const Invoicecreate = () => {
 
   const handleChange = (index, e) => {
     const newiteamadd = [...formvalue];
+
     newiteamadd[index][e.target.name] = e.target.value;
+    const cgst = newiteamadd[index].gst / 2;
+
+    newiteamadd[index].sgcst = cgst;
+    newiteamadd[index].cgst = cgst;
+    console.log(cgst, "----------");
+    const amount = newiteamadd[index].quentity * newiteamadd[index].rate;
+    const f_Gst = amount * newiteamadd[index].gst;
+    const final_Gst = f_Gst / 100;
+    const amounta = amount + final_Gst;
+    newiteamadd[index].amount = amounta;
+    const final = 12;
+
+    settotal(newiteamadd[index].amount + final);
+    // total = newiteamadd[index].amount + total;
+    // final = newiteamadd[index].amount;
+    setcgst1(final_Gst);
+    // console.log(final, "totalAmount");
+
     setFormValues(newiteamadd);
   };
 
   const removeFormFields = (i) => {
+    console.log(i, "---------");
     const newiteamadd = [...formvalue];
     // newiteamadd[index][e.target.name] =  e.target.value
     const filterdata = newiteamadd.filter((ele, index) => index !== i);
     setFormValues(filterdata);
   };
+
+  const totalAmount = total;
+  const final_Gst1 = cgst1;
   console.log("console.log(datalist);", formvalue);
 
   return (
@@ -416,12 +452,12 @@ const Invoicecreate = () => {
                                     type="text"
                                     value={formvalue.gst}
                                     name="gst"
-                                    // onChange={(e) =>
-                                    //   dispatch({
-                                    //     type: "GST",
-                                    //     payload: e.target.value,
-                                    //   })
-                                    // }
+                                    onInput={(e) =>
+                                      setFormValues({
+                                        ...formvalue,
+                                        gst: e.target.value,
+                                      })
+                                    }
                                     onChange={(e) => {
                                       handleChange(index, e);
                                     }}
@@ -434,6 +470,12 @@ const Invoicecreate = () => {
                                     type="text"
                                     value={formvalue.quentity}
                                     name="quentity"
+                                    onInput={(e) =>
+                                      setFormValues({
+                                        ...formvalue,
+                                        quentity: e.target.value,
+                                      })
+                                    }
                                     // onChange={(e) =>
                                     //   dispatch({
                                     //     type: "QUANTITY",
@@ -472,7 +514,7 @@ const Invoicecreate = () => {
                                     type="text"
                                     name="cgst"
                                     readOnly
-                                    value={formvalue.cgst}
+                                    value={formvalue[index].cgst}
                                     // value={cgst ? cgst : 0}
                                     onChange={(e) => {
                                       handleChange(index, e);
@@ -485,7 +527,7 @@ const Invoicecreate = () => {
                                     style={{ width: "80px" }}
                                     type="text"
                                     name="sgcst"
-                                    value={formvalue.sgcst}
+                                    value={formvalue[index].sgcst}
                                     readOnly
                                     // value={cgst ? cgst : 0}
                                     onChange={(e) => {
@@ -500,25 +542,13 @@ const Invoicecreate = () => {
                                     name="amount"
                                     style={{ width: "120px" }}
                                     type="text"
-                                    value={formvalue.amount}
-                                    // value={amounta ? amounta : 0}
+                                    value={formvalue[index].amount}
                                     onChange={(e) => {
                                       handleChange(index, e);
                                     }}
                                   />
                                 </td>
                                 <td>
-                                  {/* <a
-                              href="javascript:void(0)"
-                              className="text-success font-18"
-                              title="Add"
-                              // onClick={() => {
-                              //   dispatch({ type: "ADDROW", payload: state });
-                              // }}
-                              // onClick={removefield()}
-                            >
-                              <i className="fa fa-plus" />
-                            </a> */}
                                   {formvalue.length > 1 ? (
                                     <button
                                       className="button add"
@@ -565,7 +595,7 @@ const Invoicecreate = () => {
                               width: "230px",
                             }}
                           >
-                            {amount}
+                            {totalAmount}
                           </td>
                         </tr>
                         <tr>
@@ -581,7 +611,7 @@ const Invoicecreate = () => {
                               width: "230px",
                             }}
                           >
-                            {final_Gst}
+                            {final_Gst1}
                           </td>
                         </tr>
                         <tr>
@@ -597,27 +627,10 @@ const Invoicecreate = () => {
                               width: "230px",
                             }}
                           >
-                            {final_Gst}
+                            {final_Gst1}
                           </td>
                         </tr>
 
-                        <tr>
-                          <td colSpan={5} className="text-end">
-                            Discount %
-                          </td>
-                          <td
-                            style={{
-                              textAlign: "right",
-                              paddingRight: "30px",
-                              width: "230px",
-                            }}
-                          >
-                            <input
-                              className="form-control text-end"
-                              type="text"
-                            />
-                          </td>
-                        </tr>
                         <tr>
                           <td
                             colSpan={5}
@@ -634,7 +647,7 @@ const Invoicecreate = () => {
                               width: "230px",
                             }}
                           >
-                            ₹ {amounta}
+                            ₹ {totalAmount}
                           </td>
                         </tr>
                       </tbody>
@@ -655,11 +668,7 @@ const Invoicecreate = () => {
                 <button className="btn btn-primary submit-btn m-r-10">
                   Save &amp; Send
                 </button>
-                <Link to={"/app/sales/invoices_template"}>
-                  <button className="btn btn-primary submit-btn">
-                    Preview
-                  </button>
-                </Link>
+                <button className="btn btn-primary submit-btn">Save</button>
               </div>
             </form>
           </div>

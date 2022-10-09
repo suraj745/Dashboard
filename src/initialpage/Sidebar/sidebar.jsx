@@ -1025,6 +1025,24 @@ const Sidebar = (props) => {
                         Client Profile{" "}
                       </Link>
                     </li>
+                    <li>
+                      <Link
+                        className={pathname.includes("client-") ? "active" : ""}
+                        to="/app/profile/Leadprofile"
+                      >
+                        {" "}
+                        Leadprofile{" "}
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        className={pathname.includes("client-") ? "active" : ""}
+                        to="/app/profile/Lead_edit"
+                      >
+                        {" "}
+                        Lead_edit{" "}
+                      </Link>
+                    </li>
                   </ul>
                 ) : (
                   ""

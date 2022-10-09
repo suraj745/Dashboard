@@ -1,22 +1,44 @@
+/**
+ * TermsCondition Page
+ */
 import React, { useEffect } from "react";
-import { Helmet } from "react-helmet";
-import { Link } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import {
-  Avatar_19,
-  Avatar_29,
-  Avatar_07,
-  Avatar_06,
-  Avatar_14,
-  Avatar_18,
-  Avatar_28,
-  Avatar_13,
-} from "../../Entryfile/imagepath";
-import Editclient from "../../_components/modelbox/Editclient";
 import { useState } from "react";
+import { Helmet } from "react-helmet";
+import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 
-const Clients = () => {
-  const [count, setCount] = useState([]);
+const Client_Edit = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = async (data) => {
+    console.log(data);
+
+    try {
+      const res = await fetch(
+        `http://localhost:5001/api/client/updateSingle/63414a8cfa907e76b0d079e9`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  let [Client, setClient] = useState([]);
+  useEffect(() => {
+    fetch(`http://localhost:5001/api/client/getSingle/63414a8cfa907e76b0d079e9`)
+      .then((response) => response.json())
+      .then((data) => setClient(data.data));
+  }, []);
+  console.log(Client, "datafetch11");
+
   useEffect(() => {
     if ($(".select").length > 0) {
       $(".select").select2({
@@ -25,184 +47,32 @@ const Clients = () => {
       });
     }
   });
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({});
-
-  console.log(errors);
-
-  let [dogImage, setDogImage] = useState([]);
-
-  // 3. Create out useEffect function
-  useEffect(() => {
-    fetch(`http://localhost:5001/api/client/getAll`)
-      .then((response) => response.json())
-      // 4. Setting *dogImage* to the image url that we received from the response above
-      .then((data) => setDogImage(data.data));
-  }, []);
-
-  console.log(dogImage, "datafetch11");
-
-  const onSubmit = async (data) => {
-    console.log(data);
-    try {
-      const res = await fetch(`http://localhost:5001/api/client/add`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-
-      const data2 = await res.json();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <div className="page-wrapper">
       <Helmet>
-        <title>Clients - </title>
-        <meta name="description" content="Login page" />
+        <title>Client Profile - HRMS admin Template</title>
+        <meta name="description" content="Reactify Blank Page" />
       </Helmet>
       {/* Page Content */}
       <div className="content container-fluid">
         {/* Page Header */}
         <div className="page-header">
-          <div className="row align-items-center">
-            <div className="col">
-              <h3 className="page-title">Clients</h3>
+          <div className="row">
+            <div className="col-sm-12">
+              <h3 className="page-title">Dashboard</h3>
               <ul className="breadcrumb">
                 <li className="breadcrumb-item">
-                  <Link to="/app/main/dashboard">Dashboard</Link>
+                  <Link to="/app/employees/leads">Leads</Link>
                 </li>
-                <li className="breadcrumb-item active">Clients</li>
+                <li className="breadcrumb-item active">Profile Leads</li>
               </ul>
-            </div>
-            <div className="col-auto float-end ml-auto">
-              <a
-                href="#"
-                className="btn add-btn"
-                data-bs-toggle="modal"
-                data-bs-target="#add_client"
-              >
-                <i className="fa fa-plus" /> Add Client
-              </a>
-              <div className="view-icons">
-                <Link
-                  to="/app/employees/clients"
-                  className="grid-view btn btn-link active"
-                >
-                  <i className="fa fa-th" />
-                </Link>
-                <Link
-                  to="/app/employees/clients-list"
-                  className="list-view btn btn-link"
-                >
-                  <i className="fa fa-bars" />
-                </Link>
-              </div>
             </div>
           </div>
         </div>
         {/* /Page Header */}
-        {/* Search Filter */}
-        <div className="row filter-row">
-          <div className="col-sm-6 col-md-3">
-            <div className="form-group form-focus">
-              <input type="text" className="form-control floating" />
-              <label className="focus-label">Client Name</label>
-            </div>
-          </div>
-        </div>
-        {/* Search Filter */}
-        <div className="row staff-grid-row">
-          {dogImage.map((data, index) => (
-            // <p>{data.businessName}</p>
-
-            <div className="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3">
-              <div className="profile-widget">
-                <div className="profile-img">
-                  <Link
-                    to={`/app/profile/client-profile/${data._id}`}
-                    className="avatar"
-                  >
-                    <img alt="" src={Avatar_19} />
-                  </Link>
-                </div>
-                <div className="dropdown profile-action">
-                  <a
-                    href="#"
-                    className="action-icon dropdown-toggle"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    <i className="material-icons">more_vert</i>
-                  </a>
-                  <div className="dropdown-menu dropdown-menu-right">
-                    <a
-                      className="dropdown-item"
-                      href="/app/profile/Client_Edit"
-                      data-bs-target="#edit_client"
-                    >
-                      <i className="fa fa-pencil m-r-5" /> Edit
-                    </a>
-
-                    <a
-                      className="dropdown-item"
-                      href="#"
-                      data-bs-toggle="modal"
-                      data-bs-target="#delete_client"
-                    >
-                      <i className="fa fa-trash-o m-r-5" /> Delete
-                    </a>
-                  </div>
-                </div>
-                <h4 className="user-name m-t-10 mb-0 text-ellipsis">
-                  <Link to="/app/profile/client-profile">
-                    {data.businessName}
-                  </Link>
-                </h4>
-                <h5 className="user-name m-t-10 mb-0 text-ellipsis">
-                  <Link to={`/app/profile/client-profile/${data._id}`}>
-                    {data.BusinessAlias}
-                  </Link>
-                </h5>
-
-                <Link
-                  to={`/app/profile/client-profile/${data._id}`}
-                  className="btn btn-white btn-sm m-t-10"
-                >
-                  View Profile
-                </Link>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-      {/* /Page Content */}
-      {/* Add Client Modal */}
-      <div id="add_client" className="modal custom-modal fade" role="dialog">
-        <div
-          className="modal-dialog modal-dialog-centered modal-lg"
-          role="document"
-        >
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title">Add Client</h5>
-              <button
-                type="button"
-                className="close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">×</span>
-              </button>
-            </div>
-            <div className="modal-body">
+        <div className="card mb-0">
+          <div className="card-body">
+            <div className="row">
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="row">
                   <div className="col-md-6">
@@ -216,7 +86,9 @@ const Clients = () => {
                         style={{ height: "2.5rem" }}
                         aria-label="Default select example"
                       >
-                        <option value="Afghanistan">Afghanistan</option>
+                        <option value="Afghanistan">
+                          {Client.selectCountry}
+                        </option>
                         <option value="Albania">Albania</option>
                         <option value="Algeria">Algeria</option>
                         <option value="American Samoa">American Samoa</option>
@@ -547,7 +419,7 @@ const Clients = () => {
                       <label className="col-form-label">Unique Key</label>
                       <input
                         className="form-control"
-                        type="text"
+                        value={Client.uniquekey}
                         {...register("uniquekey")}
                       />
                     </div>
@@ -559,7 +431,7 @@ const Clients = () => {
                       </label>
                       <input
                         className="form-control"
-                        type="text"
+                        value={Client.businessName}
                         {...register("businessName")}
                       />
                     </div>
@@ -571,11 +443,12 @@ const Clients = () => {
                       </label>
                       <input
                         className="form-control floating"
+                        value={Client.BusinessAlias}
                         {...register("BusinessAlias")}
                       />
                       <input
                         className="form-control floating"
-                        type="hidden"
+                        type="text"
                         value={0}
                         {...register("lead")}
                       />
@@ -587,6 +460,7 @@ const Clients = () => {
                       <input
                         className="form-control"
                         type="email"
+                        value={Client.email}
                         {...register("email")}
                       />
                     </div>
@@ -597,6 +471,7 @@ const Clients = () => {
                       <input
                         className="form-control"
                         type={"number"}
+                        value={Client.phoneNumber}
                         {...register("phoneNumber")}
                       />
                     </div>
@@ -608,7 +483,7 @@ const Clients = () => {
                       </label>
                       <input
                         className="form-control floating"
-                        type="text"
+                        value={Client.VATRegistrationNumber}
                         {...register("VATRegistrationNumber")}
                       />
                     </div>
@@ -621,7 +496,11 @@ const Clients = () => {
                   <div className="col-md-6">
                     <div className="form-group">
                       <label className="col-form-label">Business Logo</label>
-                      <input type={"file"} {...register("businessLogo")} />
+                      <input
+                        type={"file"}
+                        value={Client.businessLogo}
+                        {...register("businessLogo")}
+                      />
                     </div>
                   </div>
                 </section>
@@ -639,7 +518,7 @@ const Clients = () => {
                       <label className="col-form-label">Street Address</label>
                       <input
                         className="form-control"
-                        type="text"
+                        value={Client.communicationStreetAddress}
                         {...register("communicationStreetAddress")}
                       />
                     </div>
@@ -650,7 +529,7 @@ const Clients = () => {
                       <label className="col-form-label">City</label>
                       <input
                         className="form-control"
-                        type="text"
+                        value={Client.communicationCity}
                         {...register("communicationCity")}
                       />
                     </div>
@@ -660,7 +539,7 @@ const Clients = () => {
                       <label className="col-form-label">State</label>
                       <input
                         className="form-control"
-                        type="text"
+                        value={Client.communicationState}
                         {...register("communicationState")}
                       />
                     </div>
@@ -673,7 +552,7 @@ const Clients = () => {
                       </label>
                       <input
                         className="form-control"
-                        type="text"
+                        value={Client.communicationPostalCode}
                         {...register("communicationPostalCode")}
                       />
                     </div>
@@ -691,8 +570,7 @@ const Clients = () => {
                       </label>
                       <input
                         className="form-control"
-                        type="text"
-                        placeholder="Name"
+                        value={Client.shippingName}
                         {...register("shippingName")}
                       />
                     </div>
@@ -706,7 +584,7 @@ const Clients = () => {
                       </label>
                       <input
                         className="form-control"
-                        type="text"
+                        value={Client.shippingStreetAddress}
                         placeholder="Street Address"
                         {...register("shippingStreetAddress")}
                       />
@@ -717,7 +595,7 @@ const Clients = () => {
                       <label className="col-form-label">State</label>
                       <input
                         className="form-control"
-                        type="text"
+                        value={Client.shippingState}
                         placeholder="State"
                         {...register("shippingState")}
                       />
@@ -734,8 +612,7 @@ const Clients = () => {
                       </label>
                       <input
                         className="form-control"
-                        type="text"
-                        placeholder="Select Country "
+                        value={Client.shippingCountry}
                         {...register("shippingCountry")}
                       />
                     </div>
@@ -746,8 +623,7 @@ const Clients = () => {
                       <label className="col-form-label">City</label>
                       <input
                         className="form-control"
-                        type="text"
-                        placeholder="City"
+                        value={Client.shippingCity}
                         {...register("shippingCity")}
                       />
                     </div>
@@ -760,59 +636,23 @@ const Clients = () => {
                       </label>
                       <input
                         className="form-control"
-                        type="text"
-                        placeholder="Postal Code / Zip Code"
+                        value={Client.shippingPostalCode}
                         {...register("shippingPostalCode")}
                       />
                     </div>
                   </div>
                 </section>
                 <div className="submit-section">
-                  <button className="btn btn-primary submit-btn">Submit</button>
+                  <button type="submit" className="btn btn-primary submit-btn">
+                    Update
+                  </button>
                 </div>
-              </form>
+              </form>{" "}
             </div>
           </div>
         </div>
       </div>
-      {/* /Add Client Modal */}
-      {/* Edit Client Modal */}
-      <Editclient />
-      {/* /Edit Client Modal */}
-      {/* Delete Client Modal */}
-      <div className="modal custom-modal fade" id="delete_client" role="dialog">
-        <div className="modal-dialog modal-dialog-centered">
-          <div className="modal-content">
-            <div className="modal-body">
-              <div className="form-header">
-                <h3>Delete Client</h3>
-                <p>Are you sure want to delete?</p>
-              </div>
-              <div className="modal-btn delete-action">
-                <div className="row">
-                  <div className="col-6">
-                    <a href="" className="btn btn-primary continue-btn">
-                      Delete
-                    </a>
-                  </div>
-                  <div className="col-6">
-                    <a
-                      href=""
-                      data-bs-dismiss="modal"
-                      className="btn btn-primary cancel-btn"
-                    >
-                      Cancel
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      {/* /Delete Client Modal */}
     </div>
   );
 };
-
-export default Clients;
+export default Client_Edit;

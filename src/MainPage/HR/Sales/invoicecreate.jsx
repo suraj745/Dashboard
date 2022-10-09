@@ -96,6 +96,7 @@ const Invoicecreate = () => {
   // setAmount(amounta);
 
   const [state, dispatch] = useReducer(reducer, initialState);
+  console.log("state", state);
 
   const cgst = state.GST / 2;
   const amount = state.Quantity * state.Rate;
@@ -342,7 +343,6 @@ const Invoicecreate = () => {
                           <th className="col-sm-2">CGST</th>
                           <th className="col-sm-2">SGST</th>
                           <th style={{ width: "100px" }}>Amount</th>
-
                           <th> </th>
                         </tr>
                       </thead>
@@ -465,13 +465,92 @@ const Invoicecreate = () => {
                             return (
                               <tr key={index} className="">
                                 <td></td>
-                                <td>{Item}</td>
-                                <td>{GST}</td>
-                                <td>{Quantity}</td>
-                                <td>{Rate}</td>
-                                <td>{cgst}</td>
-                                <td>{final_Gst}</td>
-                                <td>{amounta}</td>
+                                <td>
+                                  <input
+                                    className="form-control"
+                                    type="text"
+                                    style={{ minWidth: "150px" }}
+                                    // onChange={(e) =>
+                                    //   dispatch({
+                                    //     type: "ITEM",
+                                    //     payload: e.target.value,
+                                    //   })
+                                    // }
+                                  />
+                                </td>
+                                <td>
+                                  {/* {GST} */}
+                                  <input
+                                    className="form-control"
+                                    style={{ width: "80px" }}
+                                    type="text"
+                                    // onChange={(e) =>
+                                    //   dispatch({
+                                    //     type: "GST",
+                                    //     payload: e.target.value,
+                                    //   })
+                                    // }
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    className="form-control"
+                                    style={{ width: "80px" }}
+                                    type="text"
+                                    // onChange={(e) =>
+                                    //   dispatch({
+                                    //     type: "QUANTITY",
+                                    //     payload: e.target.value,
+                                    //   })
+                                    // }
+                                  />
+                                </td>
+                                <td>
+                                  {/* {Rate} */}
+                                  <input
+                                    className="form-control"
+                                    style={{ width: "80px" }}
+                                    type="text"
+                                    // value={state.Rate}
+                                    // onChange={(e) =>
+                                    //   dispatch({
+                                    //     type: "RATE",
+                                    //     payload: e.target.value,
+                                    //   })
+                                    // }
+                                  />
+                                </td>
+                                <td>
+                                  {/* {cgst} */}
+
+                                  <input
+                                    className="form-control"
+                                    style={{ width: "80px" }}
+                                    type="text"
+                                    readOnly
+                                    value={cgst ? cgst : 0}
+                                  />
+                                </td>
+                                <td>
+                                  {/* {final_Gst} */}
+                                  <input
+                                    className="form-control"
+                                    style={{ width: "80px" }}
+                                    type="text"
+                                    readOnly
+                                    value={cgst ? cgst : 0}
+                                  />
+                                </td>
+                                <td>
+                                  {/* {amounta} */}
+                                  <input
+                                    className="form-control"
+                                    readOnly
+                                    style={{ width: "120px" }}
+                                    type="text"
+                                    value={amounta ? amounta : 0}
+                                  />
+                                </td>
                                 <td>
                                   <section
                                     onClick={() => {

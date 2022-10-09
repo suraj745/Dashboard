@@ -18,30 +18,36 @@ import { Table } from "antd";
 import "antd/dist/antd.css";
 import { itemRender, onShowSizeChange } from "../paginationfunction";
 import "../antdstyle.css";
+import { useEffect } from "react";
 
 const Leads = () => {
   const [modal, setModal] = useState(false);
-  const [data, setData] = useState([
-    {
-      id: 1,
-      image: Avatar_11,
-      name: "John Doe",
-      email: "barrycuda@example.com",
-      mobile: "9876543210",
-      project: "Hospital Administration",
-      status: "Working",
-      created: "10 hours ago",
-    },
-  ]);
+  const [data, setData] = useState([]);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  let [lead, setlead] = useState([]);
 
+  // 3. Create out useEffect function
+  useEffect(() => {
+    fetch(`http://localhost:5001/api/lead/getAllClient`)
+      .then((response) => response.json())
+      // 4. Setting *dogImage* to the image url that we received from the response above
+      .then((data) => setlead(data.data));
+  }, []);
+  useEffect(() => {
+    fetch(`http://localhost:5001/api/lead/getAll`)
+      .then((response) => response.json())
+      // 4. Setting *dogImage* to the image url that we received from the response above
+      .then((data) => setData(data.data));
+  }, []);
+  // console.log(lead, "datafetch11");
   const onSubmit = async (data) => {
     console.log(data);
+
     try {
       const res = await fetch(`http://localhost:5001/api/lead/add`, {
         method: "POST",
@@ -63,13 +69,10 @@ const Leads = () => {
     },
     {
       title: "Lead Name",
-      dataIndex: "name",
+      dataIndex: "organizationName",
       render: (text, record) => (
         <h2 className="table-avatar">
-          <Link to="/app/profile/employee-profile" className="avatar">
-            <img alt="" src={record.image} />
-          </Link>
-          <Link to="/app/profile/employee-profile">{text}</Link>
+          <Link to={`/app/profile/Leadprofile`}>{text}</Link>
         </h2>
       ),
       sorter: (a, b) => a.name.length - b.name.length,
@@ -82,105 +85,27 @@ const Leads = () => {
 
     {
       title: "Mobile",
-      dataIndex: "mobile",
-      sorter: (a, b) => a.mobile.length - b.mobile.length,
+      dataIndex: "contactName",
+      sorter: (a, b) => a.contactName.length - b.contactName.length,
     },
 
     {
-      title: "Project",
-      dataIndex: "project",
+      title: "designation",
+      dataIndex: "designation",
+      render: (text, record) => (
+        <Link to="/app/projects/projects-view">{text}</Link>
+      ),
+      sorter: (a, b) => a.project.length - b.project.length,
+    },
+    {
+      title: "subject",
+      dataIndex: "subject",
       render: (text, record) => (
         <Link to="/app/projects/projects-view">{text}</Link>
       ),
       sorter: (a, b) => a.project.length - b.project.length,
     },
 
-    {
-      title: "Assigned Staff",
-      dataIndex: "assignedstaff",
-
-      render: (text, record) => (
-        <ul className="team-members">
-          <li>
-            <a href="#" title="John Doe" data-bs-toggle="tooltip">
-              <img alt="" src={Avatar_02} />
-            </a>
-          </li>
-          <li>
-            <a href="#" title="Richard Miles" data-bs-toggle="tooltip">
-              <img alt="" src={Avatar_09} />
-            </a>
-          </li>
-          <li className="dropdown avatar-dropdown">
-            <a
-              href="#"
-              className="all-users dropdown-toggle"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              +15
-            </a>
-            <div className="dropdown-menu dropdown-menu-right">
-              <div className="avatar-group">
-                <a className="avatar avatar-xs" href="#">
-                  <img alt="" src={Avatar_02} />
-                </a>
-                <a className="avatar avatar-xs" href="#">
-                  <img alt="" src={Avatar_09} />
-                </a>
-                <a className="avatar avatar-xs" href="#">
-                  <img alt="" src={Avatar_10} />
-                </a>
-                <a className="avatar avatar-xs" href="#">
-                  <img alt="" src={Avatar_05} />
-                </a>
-                <a className="avatar avatar-xs" href="#">
-                  <img alt="" src={Avatar_11} />
-                </a>
-                <a className="avatar avatar-xs" href="#">
-                  <img alt="" src={Avatar_12} />
-                </a>
-                <a className="avatar avatar-xs" href="#">
-                  <img alt="" src={Avatar_13} />
-                </a>
-                <a className="avatar avatar-xs" href="#">
-                  <img alt="" src={Avatar_01} />
-                </a>
-                <a className="avatar avatar-xs" href="#">
-                  <img alt="" src={Avatar_16} />
-                </a>
-              </div>
-              <div className="avatar-pagination">
-                <ul className="pagination">
-                  <li className="page-item">
-                    <a className="page-link" href="#" aria-label="Previous">
-                      <span aria-hidden="true">«</span>
-                      <span className="sr-only">Previous</span>
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link" href="#">
-                      1
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link" href="#">
-                      2
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link" href="#" aria-label="Next">
-                      <span aria-hidden="true">»</span>
-                      <span className="sr-only">Next</span>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </li>
-        </ul>
-      ),
-    },
     {
       title: "Status",
       dataIndex: "status",
@@ -203,6 +128,7 @@ const Leads = () => {
     },
     {
       title: "Action",
+      dataIndex: "_id",
       render: (text, record) => (
         <div className="dropdown dropdown-action text-end">
           <a
@@ -214,7 +140,7 @@ const Leads = () => {
             <i className="material-icons">more_vert</i>
           </a>
           <div className="dropdown-menu dropdown-menu-right">
-            <a className="dropdown-item" href="#">
+            <a className="dropdown-item" href="/app/profile/Lead_edit">
               <i className="fa fa-pencil m-r-5" /> Edit
             </a>
             <a className="dropdown-item" href="#">
@@ -225,6 +151,7 @@ const Leads = () => {
       ),
     },
   ];
+
   return (
     <div className="page-wrapper">
       <Helmet>
@@ -356,7 +283,7 @@ const Leads = () => {
                   Phone
                 </label>
                 <input
-                  {...register("contactName")}
+                  {...register("Phone_Number")}
                   type={"number"}
                   placeholder="Phone"
                   class="form-control"

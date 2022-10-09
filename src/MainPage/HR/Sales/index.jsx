@@ -18,6 +18,7 @@ import ProvidentFund from "./providentfund";
 import Taxs from "./tax";
 import Proforma_invoices from "./Proforma_invoices";
 import Proforma_invoicesCreate from "./Proforma_invoicesCreate";
+import InvoiceTemplate from "./InvoiceTemplate";
 
 const SalesRoute = ({ match }) => (
   <Switch>
@@ -36,6 +37,7 @@ const SalesRoute = ({ match }) => (
     <Route path={`${match.url}/payments`} component={Payments} />
     <Route path={`${match.url}/provident-fund`} component={ProvidentFund} />
     <Route path={`${match.url}/taxes`} component={Taxs} />
+    <Route path={`${match.url}/invoice_template`} component={InvoiceTemplate} />
     <Route
       path={`${match.url}/Proforma_invoices`}
       component={Proforma_invoices}

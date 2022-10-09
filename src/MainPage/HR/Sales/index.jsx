@@ -37,7 +37,7 @@ const SalesRoute = ({ match }) => (
     <Route path={`${match.url}/payments`} component={Payments} />
     <Route path={`${match.url}/provident-fund`} component={ProvidentFund} />
     <Route path={`${match.url}/taxes`} component={Taxs} />
-    <Route path={`${match.url}/invoice_template`} component={InvoiceTemplate} />
+    <Route path={`${match.url}/invoice-template`} component={InvoiceTemplate} />
     <Route
       path={`${match.url}/Proforma_invoices`}
       component={Proforma_invoices}

@@ -7,7 +7,10 @@ import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
-const Client_Edit = () => {
+const Client_Edit = ({ match }) => {
+  // const id = searchParams.get("clientid");
+  console.log(match.params.clientid, "---------------");
+
   const {
     register,
     handleSubmit,
@@ -18,7 +21,7 @@ const Client_Edit = () => {
 
     try {
       const res = await fetch(
-        `http://localhost:5001/api/client/updateSingle/63414a8cfa907e76b0d079e9`,
+        `http://localhost:5001/api/client/updateSingle/${match.params.clientid}`,
         {
           method: "POST",
           headers: {
@@ -33,7 +36,7 @@ const Client_Edit = () => {
   };
   let [Client, setClient] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:5001/api/client/getSingle/63414a8cfa907e76b0d079e9`)
+    fetch(`http://localhost:5001/api/client/getSingle/${match.params.clientid}`)
       .then((response) => response.json())
       .then((data) => setClient(data.data));
   }, []);
@@ -47,6 +50,7 @@ const Client_Edit = () => {
       });
     }
   });
+
   return (
     <div className="page-wrapper">
       <Helmet>
@@ -419,6 +423,12 @@ const Client_Edit = () => {
                       <label className="col-form-label">Unique Key</label>
                       <input
                         className="form-control"
+                        onInput={(e) =>
+                          setClient({
+                            ...Client,
+                            uniquekey: e.target.value,
+                          })
+                        }
                         value={Client.uniquekey}
                         {...register("uniquekey")}
                       />
@@ -431,6 +441,12 @@ const Client_Edit = () => {
                       </label>
                       <input
                         className="form-control"
+                        onInput={(e) =>
+                          setClient({
+                            ...Client,
+                            businessName: e.target.value,
+                          })
+                        }
                         value={Client.businessName}
                         {...register("businessName")}
                       />
@@ -443,12 +459,18 @@ const Client_Edit = () => {
                       </label>
                       <input
                         className="form-control floating"
+                        onInput={(e) =>
+                          setClient({
+                            ...Client,
+                            BusinessAlias: e.target.value,
+                          })
+                        }
                         value={Client.BusinessAlias}
                         {...register("BusinessAlias")}
                       />
                       <input
                         className="form-control floating"
-                        type="text"
+                        type="hidden"
                         value={0}
                         {...register("lead")}
                       />
@@ -458,6 +480,12 @@ const Client_Edit = () => {
                     <div className="form-group">
                       <label className="col-form-label">Email</label>
                       <input
+                        onInput={(e) =>
+                          setClient({
+                            ...Client,
+                            email: e.target.value,
+                          })
+                        }
                         className="form-control"
                         type="email"
                         value={Client.email}
@@ -471,6 +499,12 @@ const Client_Edit = () => {
                       <input
                         className="form-control"
                         type={"number"}
+                        onInput={(e) =>
+                          setClient({
+                            ...Client,
+                            phoneNumber: e.target.value,
+                          })
+                        }
                         value={Client.phoneNumber}
                         {...register("phoneNumber")}
                       />
@@ -483,6 +517,12 @@ const Client_Edit = () => {
                       </label>
                       <input
                         className="form-control floating"
+                        onInput={(e) =>
+                          setClient({
+                            ...Client,
+                            VATRegistrationNumber: e.target.value,
+                          })
+                        }
                         value={Client.VATRegistrationNumber}
                         {...register("VATRegistrationNumber")}
                       />
@@ -498,6 +538,12 @@ const Client_Edit = () => {
                       <label className="col-form-label">Business Logo</label>
                       <input
                         type={"file"}
+                        onInput={(e) =>
+                          setClient({
+                            ...Client,
+                            businessLogo: e.target.value,
+                          })
+                        }
                         value={Client.businessLogo}
                         {...register("businessLogo")}
                       />
@@ -515,8 +561,16 @@ const Client_Edit = () => {
                   <br />
                   <div className="col-md-6">
                     <div className="form-group">
-                      <label className="col-form-label">Street Address</label>
+                      <label className="col-form-label">
+                        Street Address111
+                      </label>
                       <input
+                        onInput={(e) =>
+                          setClient({
+                            ...Client,
+                            communicationStreetAddress: e.target.value,
+                          })
+                        }
                         className="form-control"
                         value={Client.communicationStreetAddress}
                         {...register("communicationStreetAddress")}
@@ -529,6 +583,12 @@ const Client_Edit = () => {
                       <label className="col-form-label">City</label>
                       <input
                         className="form-control"
+                        onInput={(e) =>
+                          setClient({
+                            ...Client,
+                            communicationCity: e.target.value,
+                          })
+                        }
                         value={Client.communicationCity}
                         {...register("communicationCity")}
                       />
@@ -540,6 +600,12 @@ const Client_Edit = () => {
                       <input
                         className="form-control"
                         value={Client.communicationState}
+                        onInput={(e) =>
+                          setClient({
+                            ...Client,
+                            communicationState: e.target.value,
+                          })
+                        }
                         {...register("communicationState")}
                       />
                     </div>
@@ -553,6 +619,12 @@ const Client_Edit = () => {
                       <input
                         className="form-control"
                         value={Client.communicationPostalCode}
+                        onInput={(e) =>
+                          setClient({
+                            ...Client,
+                            communicationPostalCode: e.target.value,
+                          })
+                        }
                         {...register("communicationPostalCode")}
                       />
                     </div>
@@ -571,6 +643,12 @@ const Client_Edit = () => {
                       <input
                         className="form-control"
                         value={Client.shippingName}
+                        onInput={(e) =>
+                          setClient({
+                            ...Client,
+                            shippingName: e.target.value,
+                          })
+                        }
                         {...register("shippingName")}
                       />
                     </div>
@@ -585,7 +663,12 @@ const Client_Edit = () => {
                       <input
                         className="form-control"
                         value={Client.shippingStreetAddress}
-                        placeholder="Street Address"
+                        onInput={(e) =>
+                          setClient({
+                            ...Client,
+                            shippingStreetAddress: e.target.value,
+                          })
+                        }
                         {...register("shippingStreetAddress")}
                       />
                     </div>
@@ -596,7 +679,12 @@ const Client_Edit = () => {
                       <input
                         className="form-control"
                         value={Client.shippingState}
-                        placeholder="State"
+                        onInput={(e) =>
+                          setClient({
+                            ...Client,
+                            shippingState: e.target.value,
+                          })
+                        }
                         {...register("shippingState")}
                       />
                     </div>
@@ -613,6 +701,12 @@ const Client_Edit = () => {
                       <input
                         className="form-control"
                         value={Client.shippingCountry}
+                        onInput={(e) =>
+                          setClient({
+                            ...Client,
+                            shippingCountry: e.target.value,
+                          })
+                        }
                         {...register("shippingCountry")}
                       />
                     </div>
@@ -624,6 +718,12 @@ const Client_Edit = () => {
                       <input
                         className="form-control"
                         value={Client.shippingCity}
+                        onInput={(e) =>
+                          setClient({
+                            ...Client,
+                            shippingCity: e.target.value,
+                          })
+                        }
                         {...register("shippingCity")}
                       />
                     </div>
@@ -637,6 +737,12 @@ const Client_Edit = () => {
                       <input
                         className="form-control"
                         value={Client.shippingPostalCode}
+                        onInput={(e) =>
+                          setClient({
+                            ...Client,
+                            shippingPostalCode: e.target.value,
+                          })
+                        }
                         {...register("shippingPostalCode")}
                       />
                     </div>

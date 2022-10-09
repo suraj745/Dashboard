@@ -96,6 +96,18 @@ const Invoicecreate = () => {
   // setAmount(amounta);
 
   const [state, dispatch] = useReducer(reducer, initialState);
+  console.log("state", state);
+  const [formvalue, setFormValues] = useState([
+    {
+      item: "",
+      gst: "",
+      quentity: "",
+      rate: "",
+      cgst: "",
+      sgcst: "",
+      amount: "",
+    },
+  ]);
 
   const cgst = state.GST / 2;
   const amount = state.Quantity * state.Rate;
@@ -113,6 +125,34 @@ const Invoicecreate = () => {
   });
 
   console.log(datalist);
+  const addFormFields = () => {
+    setFormValues((item) => [
+      ...item,
+      {
+        item: "",
+        gst: "",
+        quentity: "",
+        rate: "",
+        cgst: "",
+        sgcst: "",
+        amount: "",
+      },
+    ]);
+  };
+
+  const handleChange = (index, e) => {
+    const newiteamadd = [...formvalue];
+    newiteamadd[index][e.target.name] = e.target.value;
+    setFormValues(newiteamadd);
+  };
+
+  const removeFormFields = (i) => {
+    const newiteamadd = [...formvalue];
+    // newiteamadd[index][e.target.name] =  e.target.value
+    const filterdata = newiteamadd.filter((ele, index) => index !== i);
+    setFormValues(filterdata);
+  };
+  console.log("console.log(datalist);", formvalue);
 
   return (
     <div className="page-wrapper">
@@ -335,157 +375,177 @@ const Invoicecreate = () => {
                       <thead>
                         <tr>
                           <th style={{ width: "20px" }}>#</th>
-                          <th className="col-sm-2">Item</th>
+                          <th className="col-sm-2">Items</th>
                           <th className="col-sm-2">GST Rate</th>
                           <th className="col-sm-2">Quantity</th>
                           <th className="col-sm-2">Rate</th>
                           <th className="col-sm-2">CGST</th>
                           <th className="col-sm-2">SGST</th>
                           <th style={{ width: "100px" }}>Amount</th>
-
                           <th> </th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>1</td>
-                          <td>
-                            <input
-                              className="form-control"
-                              type="text"
-                              style={{ minWidth: "150px" }}
-                              value={state.Item}
-                              onChange={(e) =>
-                                dispatch({
-                                  type: "ITEM",
-                                  payload: e.target.value,
-                                })
-                              }
-                            />
-                          </td>
-                          <td>
-                            <input
-                              className="form-control"
-                              style={{ width: "80px" }}
-                              type="text"
-                              onChange={(e) =>
-                                dispatch({
-                                  type: "GST",
-                                  payload: e.target.value,
-                                })
-                              }
-                            />
-                          </td>
-                          <td>
-                            <input
-                              className="form-control"
-                              style={{ width: "80px" }}
-                              type="text"
-                              value={state.Quantity}
-                              onChange={(e) =>
-                                dispatch({
-                                  type: "QUANTITY",
-                                  payload: e.target.value,
-                                })
-                              }
-                            />
-                          </td>
+                        {formvalue.map((ele, index) => {
+                          return (
+                            <>
+                              <tr>
+                                <td>{index + 1}</td>
+                                <td>
+                                  <input
+                                    className="form-control"
+                                    type="text"
+                                    style={{ minWidth: "150px" }}
+                                    name="item"
+                                    value={formvalue.item}
+                                    // onChange={(e) =>
+                                    //   dispatch({
+                                    //     type: "ITEM",
+                                    //     payload: e.target.value,
+                                    //   })
+                                    // }
+                                    onChange={(e) => {
+                                      handleChange(index, e);
+                                    }}
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    className="form-control"
+                                    style={{ width: "80px" }}
+                                    type="text"
+                                    value={formvalue.gst}
+                                    name="gst"
+                                    // onChange={(e) =>
+                                    //   dispatch({
+                                    //     type: "GST",
+                                    //     payload: e.target.value,
+                                    //   })
+                                    // }
+                                    onChange={(e) => {
+                                      handleChange(index, e);
+                                    }}
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    className="form-control"
+                                    style={{ width: "80px" }}
+                                    type="text"
+                                    value={formvalue.quentity}
+                                    name="quentity"
+                                    // onChange={(e) =>
+                                    //   dispatch({
+                                    //     type: "QUANTITY",
+                                    //     payload: e.target.value,
+                                    //   })
+                                    // }
+                                    onChange={(e) => {
+                                      handleChange(index, e);
+                                    }}
+                                  />
+                                </td>
 
-                          <td>
-                            <input
-                              className="form-control"
-                              style={{ width: "80px" }}
-                              type="text"
-                              value={state.Rate}
-                              onChange={(e) =>
-                                dispatch({
-                                  type: "RATE",
-                                  payload: e.target.value,
-                                })
-                              }
-                            />
-                          </td>
-                          <td>
-                            <input
-                              className="form-control"
-                              style={{ width: "80px" }}
-                              type="text"
-                              readOnly
-                              value={cgst ? cgst : 0}
-                            />
-                          </td>
-                          <td>
-                            <input
-                              className="form-control"
-                              style={{ width: "80px" }}
-                              type="text"
-                              readOnly
-                              value={cgst ? cgst : 0}
-                            />
-                          </td>
-                          <td>
-                            <input
-                              className="form-control"
-                              readOnly
-                              style={{ width: "120px" }}
-                              type="text"
-                              value={amounta ? amounta : 0}
-                            />
-                          </td>
-                          <td>
-                            <a
+                                <td>
+                                  <input
+                                    className="form-control"
+                                    style={{ width: "80px" }}
+                                    type="text"
+                                    name="rate"
+                                    // value={state.Rate}
+                                    value={formvalue.rate}
+                                    // onChange={(e) =>
+                                    //   dispatch({
+                                    //     type: "RATE",
+                                    //     payload: e.target.value,
+                                    //   })
+                                    // }
+                                    onChange={(e) => {
+                                      handleChange(index, e);
+                                    }}
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    className="form-control"
+                                    style={{ width: "80px" }}
+                                    type="text"
+                                    name="cgst"
+                                    readOnly
+                                    value={formvalue.cgst}
+                                    // value={cgst ? cgst : 0}
+                                    onChange={(e) => {
+                                      handleChange(index, e);
+                                    }}
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    className="form-control"
+                                    style={{ width: "80px" }}
+                                    type="text"
+                                    name="sgcst"
+                                    value={formvalue.sgcst}
+                                    readOnly
+                                    // value={cgst ? cgst : 0}
+                                    onChange={(e) => {
+                                      handleChange(index, e);
+                                    }}
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    className="form-control"
+                                    readOnly
+                                    name="amount"
+                                    style={{ width: "120px" }}
+                                    type="text"
+                                    value={formvalue.amount}
+                                    // value={amounta ? amounta : 0}
+                                    onChange={(e) => {
+                                      handleChange(index, e);
+                                    }}
+                                  />
+                                </td>
+                                <td>
+                                  {/* <a
                               href="javascript:void(0)"
                               className="text-success font-18"
                               title="Add"
-                              onClick={() => {
-                                dispatch({ type: "ADDROW", payload: state });
-                              }}
+                              // onClick={() => {
+                              //   dispatch({ type: "ADDROW", payload: state });
+                              // }}
+                              // onClick={removefield()}
                             >
                               <i className="fa fa-plus" />
-                            </a>
-                          </td>
-                        </tr>
-
-                        {datalist.map(
-                          (
-                            {
-                              Amount,
-                              GST,
-                              Item,
-                              Quantity,
-                              Rate,
-                              amounta,
-                              cgst,
-                              f_Gst,
-                              final_Gst,
-                              id,
-                            },
-                            index
-                          ) => {
-                            return (
-                              <tr key={index} className="">
-                                <td></td>
-                                <td>{Item}</td>
-                                <td>{GST}</td>
-                                <td>{Quantity}</td>
-                                <td>{Rate}</td>
-                                <td>{cgst}</td>
-                                <td>{final_Gst}</td>
-                                <td>{amounta}</td>
+                            </a> */}
+                                  {formvalue.length > 1 ? (
+                                    <button
+                                      className="button add"
+                                      type="button"
+                                      onClick={() => {
+                                        removeFormFields(index);
+                                      }}
+                                    >
+                                      Remove
+                                    </button>
+                                  ) : null}
+                                </td>
                                 <td>
-                                  <section
-                                    onClick={() => {
-                                      dispatch({ type: "REMOVE", payload: id });
-                                    }}
-                                    className="btn btn-danger"
-                                  >
-                                    delete
-                                  </section>
+                                  {index === formvalue.length - 1 ? (
+                                    <button
+                                      className="button add"
+                                      type="button"
+                                      onClick={addFormFields}
+                                    >
+                                      Add
+                                    </button>
+                                  ) : null}
                                 </td>
                               </tr>
-                            );
-                          }
-                        )}
+                            </>
+                          );
+                        })}
                       </tbody>
                     </table>
                   </div>

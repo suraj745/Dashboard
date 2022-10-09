@@ -14,7 +14,7 @@ import {
   Avatar_16,
 } from "../../../Entryfile/imagepath";
 
-const Lead_edit = () => {
+const Lead_edit = ({ match }) => {
   const {
     register,
     handleSubmit,
@@ -25,7 +25,7 @@ const Lead_edit = () => {
 
     try {
       const res = await fetch(
-        `http://localhost:5001/api/lead/updateSingle/6341435dce02d9ef413969da`,
+        `http://localhost:5001/api/lead/updateSingle/${match.params.clientid}`,
         {
           method: "PUT",
           headers: {
@@ -40,7 +40,7 @@ const Lead_edit = () => {
   };
   let [Client, setClient] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:5001/api/lead/getSingle/6341435dce02d9ef413969da`)
+    fetch(`http://localhost:5001/api/lead/getSingle/${match.params.clientid}`)
       .then((response) => response.json())
       // 4. Setting *dogImage* to the image url that we received from the response above
       .then((data) => setClient(data.data));
@@ -96,6 +96,12 @@ const Lead_edit = () => {
                     <input
                       {...register("organizationName")}
                       value={Client.organizationName}
+                      onInput={(e) =>
+                        setClient({
+                          ...Client,
+                          organizationName: e.target.value,
+                        })
+                      }
                       className="form-control"
                       id="exampleInputEmail1"
                       aria-describedby="emailHelp"
@@ -110,6 +116,12 @@ const Lead_edit = () => {
                       {...register("contactName")}
                       type="text"
                       value={Client.contactName}
+                      onInput={(e) =>
+                        setClient({
+                          ...Client,
+                          contactName: e.target.value,
+                        })
+                      }
                       className="form-control"
                       id="exampleInputEmail1"
                       aria-describedby="emailHelp"
@@ -125,6 +137,12 @@ const Lead_edit = () => {
                       type="text"
                       value={Client.designation}
                       className="form-control"
+                      onInput={(e) =>
+                        setClient({
+                          ...Client,
+                          designation: e.target.value,
+                        })
+                      }
                       id="exampleInputEmail1"
                       aria-describedby="emailHelp"
                     />
@@ -138,6 +156,12 @@ const Lead_edit = () => {
                       {...register("email")}
                       type="email"
                       value={Client.email}
+                      onInput={(e) =>
+                        setClient({
+                          ...Client,
+                          email: e.target.value,
+                        })
+                      }
                       className="form-control"
                       id="exampleInputEmail1"
                       aria-describedby="emailHelp"
@@ -155,6 +179,12 @@ const Lead_edit = () => {
                       className="form-control"
                       id="exampleInputEmail1"
                       aria-describedby="emailHelp"
+                      onInput={(e) =>
+                        setClient({
+                          ...Client,
+                          Phone_Number: e.target.value,
+                        })
+                      }
                     />
                   </section>
 
@@ -165,7 +195,13 @@ const Lead_edit = () => {
                     <input
                       {...register("subject")}
                       type={"text"}
-                      value={Client.email}
+                      value={Client.subject}
+                      onInput={(e) =>
+                        setClient({
+                          ...Client,
+                          subject: e.target.value,
+                        })
+                      }
                       className="form-control"
                       id="exampleInputEmail1"
                       aria-describedby="emailHelp"

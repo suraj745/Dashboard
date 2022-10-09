@@ -16,7 +16,7 @@ import Editclient from "../../_components/modelbox/Editclient";
 import { useState } from "react";
 
 const Clients = () => {
-  const [count, setCount] = useState([]);
+  // const [Delete, setDelete] = useState([]);
   useEffect(() => {
     if ($(".select").length > 0) {
       $(".select").select2({
@@ -44,6 +44,11 @@ const Clients = () => {
   }, []);
 
   console.log(dogImage, "datafetch11");
+  function deletw(id) {
+    console.log(id, "---------------");
+    // return React.createElement(CustomButton, {color: 'red'}, null);
+    // return <CustomButton color="red" />;
+  }
 
   const onSubmit = async (data) => {
     console.log(data);
@@ -143,19 +148,20 @@ const Clients = () => {
                     <i className="material-icons">more_vert</i>
                   </a>
                   <div className="dropdown-menu dropdown-menu-right">
-                    <a
+                    <Link
+                      to={`/app/profile/Client_Edit/${data._id}`}
                       className="dropdown-item"
-                      href="/app/profile/Client_Edit"
-                      data-bs-target="#edit_client"
                     >
                       <i className="fa fa-pencil m-r-5" /> Edit
-                    </a>
+                    </Link>
 
                     <a
                       className="dropdown-item"
-                      href="#"
-                      data-bs-toggle="modal"
-                      data-bs-target="#delete_client"
+                      // href="${data._id}"
+                      onChange={deletw(data._id)}
+                      // onClick={this.deletw()}
+                      // data-bs-toggle="modal"
+                      // data-bs-target="#delete_client"
                     >
                       <i className="fa fa-trash-o m-r-5" /> Delete
                     </a>

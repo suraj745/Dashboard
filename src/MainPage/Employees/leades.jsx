@@ -140,9 +140,12 @@ const Leads = () => {
             <i className="material-icons">more_vert</i>
           </a>
           <div className="dropdown-menu dropdown-menu-right">
-            <a className="dropdown-item" href="/app/profile/Lead_edit">
+            <Link
+              to={`/app/profile/Lead_edit/${text}`}
+              className="dropdown-item"
+            >
               <i className="fa fa-pencil m-r-5" /> Edit
-            </a>
+            </Link>
             <a className="dropdown-item" href="#">
               <i className="fa fa-trash-o m-r-5" /> Delete
             </a>

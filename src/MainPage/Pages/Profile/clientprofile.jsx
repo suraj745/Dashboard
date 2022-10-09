@@ -19,14 +19,14 @@ import {
   Avatar_19,
 } from "../../../Entryfile/imagepath";
 
-const ClientProfile = () => {
+const ClientProfile = ({ match }) => {
   let [Client, setClient] = useState([]);
   let { userId } = useParams();
-  console.log(userId, "userId", useParams());
+  console.log(match.params.clientid, "userId", useParams());
 
   // 3. Create out useEffect function
   useEffect(() => {
-    fetch(`http://localhost:5001/api/client/getSingle/63414a8cfa907e76b0d079e9`)
+    fetch(`http://localhost:5001/api/client/getSingle/${match.params.clientid}`)
       .then((response) => response.json())
       // 4. Setting *dogImage* to the image url that we received from the response above
       .then((data) => setClient(data.data));

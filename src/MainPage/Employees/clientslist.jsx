@@ -226,7 +226,6 @@ const Clients = () => {
                 }}
                 style={{ overflowX: "auto" }}
                 columns={columns}
-                // bordered
                 dataSource={data}
                 rowKey={(record) => record.id}
                 onChange={console.log("change")}

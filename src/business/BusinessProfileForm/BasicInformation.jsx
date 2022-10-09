@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, createContext, useContext } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 import { Modal, Upload } from "antd";
 import SelectCountry from "./SelectCountry";
 import { useForm } from "react-hook-form";
+import { stepCount } from "../index";
 
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
@@ -18,6 +19,7 @@ const BasicInformation = () => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
+
   const [country, setCountry] = useState(null);
   const [fileList, setFileList] = useState([]);
 
@@ -56,12 +58,15 @@ const BasicInformation = () => {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm();
 
   //
 
-  console.log(fileList);
+  const {
+    steps: [step, setStep],
+  } = useContext(stepCount);
 
   const onSubmit = (data) => {
     const data2 = {
@@ -71,8 +76,12 @@ const BasicInformation = () => {
       image: fileList.length > 0 ? fileList[0].thumbUrl : "",
     };
 
-    console.log(data2);
+    data && setStep(1);
+
+    reset();
   };
+
+  console.log(step, setStep);
 
   return (
     <section className="container">
@@ -115,6 +124,7 @@ const BasicInformation = () => {
               id="exampleInputPassword1"
               placeholder="  Business Name"
               {...register("businessName")}
+              required
             />
           </div>
           <br />
@@ -131,6 +141,7 @@ const BasicInformation = () => {
               placeholder="Brand or Alias Name
               "
               {...register("brandName")}
+              required
             />
           </div>
           <br />
@@ -146,7 +157,9 @@ const BasicInformation = () => {
           <br />
           <section className="row gap-3 mx-1">
             <button class="col-sm-2 mt-3 btn btn-primary">Submit</button>
-            <span class="col-sm-2  mt-3 btn btn-danger">Reset</span>
+            <span class="col-sm-2  mt-3 btn btn-danger" onClick={() => reset()}>
+              Reset
+            </span>
           </section>
         </section>
       </form>

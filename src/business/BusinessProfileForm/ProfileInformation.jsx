@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { SettingOutlined } from "@ant-design/icons";
+import { stepCount } from "../index";
 import {
   Cascader,
   Input,
@@ -11,10 +12,8 @@ import {
 } from "antd";
 import moment from "moment";
 import { useForm } from "react-hook-form";
-
 const { Option } = Select;
 const children = [];
-
 const options = [
   ` Ui Designer`,
   `  Software Developer`,
@@ -30,9 +29,17 @@ options.forEach((element, index) => {
   children.push(<Option key={index}>{element}</Option>);
 });
 
+const businessCategory = [];
+
 const handleChange = (value) => {
-  console.log(`Selected: ${value}`);
+  options.map((item, index) => {
+    if (value == index) {
+      businessCategory.push(item);
+    }
+  });
 };
+
+console.log(businessCategory);
 
 const ProfileInformation = () => {
   const [form, setForm] = useState({
@@ -49,7 +56,7 @@ const ProfileInformation = () => {
   const {
     register,
     handleSubmit,
-    watch,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -57,10 +64,31 @@ const ProfileInformation = () => {
     setSize(e.target.value);
   };
 
-  const onSubmit = (data) => {
-    const data2 = { ...data, profileUrl: "1" };
+  const {
+    steps: [step, setStep],
+  } = useContext(stepCount);
 
+  const onSubmit = async (data) => {
+    const data2 = {
+      ...data,
+      profileUrl: "1",
+      what_describes_you_best: data.teamSize
+        ? "Team/Agency/Company"
+        : "Individual/Freelancer",
+    };
+
+    // const res = await fetch("http://localhost:5001/business", {
+    //   method: "POST",
+    //   headers: {
+    //     "CONTENT-TYPE": "application/json",
+    //   },
+    //   body: JSON.stringify(data2),
+    // });
+    // const data3 = await res.json();
     console.log(data2);
+
+    data && setStep(2);
+    reset();
   };
   return (
     <section className="container">
@@ -123,11 +151,11 @@ const ProfileInformation = () => {
             </div>
           </label>
 
-          <Input
-            onChange={(e) => {
-              console.log(e.target.value);
-            }}
-            addonBefore="https://www.refrens.com"
+          <input
+            className="input form-control"
+            placeholder="Set Profile Url"
+            {...register("Profile Url")}
+            required
           />
         </div>
         <br />
@@ -140,11 +168,10 @@ const ProfileInformation = () => {
             </div>
           </label>
 
-          <DatePicker
-            defaultValue={moment("2021/01", monthFormat)}
-            format={monthFormat}
-            picker="month"
-            {...register("yearn/month")}
+          <input
+            type="month"
+            {...register("year/month")}
+            placeholder="Business Since"
           />
         </div>
 
@@ -157,19 +184,12 @@ const ProfileInformation = () => {
               Month and Year of when you started the business
             </div>
           </label>
-          <Select
+          <input
+            type="text"
+            className="input form-control"
             {...register("businessCategory")}
-            mode="multiple"
-            size={size}
-            placeholder="Please select"
-            defaultValue={[]}
-            onChange={handleChange}
-            style={{
-              width: "100%",
-            }}
-          >
-            {children}
-          </Select>
+            placeholder="Business Category"
+          />
         </div>
 
         <br />
@@ -177,7 +197,14 @@ const ProfileInformation = () => {
         <section className="row gap-3">
           <button className="btn btn-primary col-sm-4">Save & Continue</button>
 
-          <button className="btn btn-danger col-sm-4 ">Reset</button>
+          <button
+            className="btn btn-danger col-sm-4 "
+            onClick={() => {
+              reset();
+            }}
+          >
+            Reset
+          </button>
         </section>
       </form>
     </section>

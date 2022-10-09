@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Select } from "antd";
 import styles from "./SelectCountry.module.scss";
+import { stepCount } from "../index";
 
 const { Option } = Select;
 
 const SelectCountry = ({ register }) => {
+  const {
+    country: [country, setCountry],
+  } = useContext(stepCount);
   return (
     <Select
       className={`${styles.select} country-select`}
-      onChange={register}
+      onChange={(e) => {
+        setCountry(e);
+      }}
       showSearch
       placeholder="Select Country"
       optionFilterProp="children"

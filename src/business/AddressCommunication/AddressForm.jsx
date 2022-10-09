@@ -1,9 +1,35 @@
-import React from "react";
+import React, { useContext } from "react";
 import SelectCountry from "../BusinessProfileForm/SelectCountry";
+import { useForm } from "react-hook-form";
+import { stepCount } from "../index";
 
 const AddressForm = () => {
+  const {
+    steps: [step, setStep],
+    country: [country, setCountry],
+  } = useContext(stepCount);
+  const { register, handleSubmit, reset } = useForm();
+
+  const onSubmit = async (data) => {
+    const data2 = { ...data, country };
+
+    console.log(data2);
+    // const res = await fetch("http://localhost:5001/business", {
+    //   method: "POST",
+    //   headers: {
+    //     "CONTENT-TYPE": "application/json",
+    //   },
+    //   body: JSON.stringify(data2),
+    // });
+    // const data3 = await res.json();
+
+    data2 && setStep(3);
+
+    reset();
+  };
+
   return (
-    <form action="" className="container">
+    <form action="" className="container" onSubmit={handleSubmit(onSubmit)}>
       <ul className="row">
         <li className="col-sm-12">
           <label for="exampleInputEmail1" class="form-label">
@@ -19,6 +45,7 @@ const AddressForm = () => {
             placeholder="Enter Street Address"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
+            {...register("streetAddress")}
           />
         </li>
         <br />
@@ -35,11 +62,13 @@ const AddressForm = () => {
             State <span className="text-danger">*</span>
           </label>
           <input
+            required
             type="text"
             class="form-control"
-            placeholder="Enter Street Address"
+            placeholder="State"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
+            {...register("State")}
           />
         </li>
 
@@ -48,11 +77,13 @@ const AddressForm = () => {
             City <span className="text-danger">*</span>
           </label>
           <input
+            required
             type="text"
             class="form-control"
-            placeholder="Enter Street Address"
+            placeholder="City"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
+            {...register("City")}
           />
         </li>
 
@@ -67,6 +98,7 @@ const AddressForm = () => {
             "
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
+            {...register("ZipCode")}
           />
         </li>
 
@@ -74,7 +106,11 @@ const AddressForm = () => {
           <button type="submit" class="btn col-sm-2 btn-primary">
             Submit
           </button>
-          <button type="submit" class="btn col-sm-2 btn-danger">
+          <button
+            type="submit"
+            class="btn col-sm-2 btn-danger"
+            onClick={() => reset()}
+          >
             reset
           </button>
         </li>

@@ -167,9 +167,9 @@ const Invoicecreate = () => {
     const final_Gst = f_Gst / 100;
     const amounta = amount + final_Gst;
     newiteamadd[index].amount = amounta;
-    const final = 0;
+    const final = 12;
 
-    settotal(newiteamadd[index].amount);
+    settotal(newiteamadd[index].amount + final);
     // total = newiteamadd[index].amount + total;
     // final = newiteamadd[index].amount;
     setcgst1(final_Gst);

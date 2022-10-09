@@ -24,6 +24,7 @@ import Error500 from "../MainPage/Pages/ErrorPage/error500";
 import Bussiness from "./Bussiness/Bussiness";
 
 import isLoggedIn from "../constant/isLoggedIn";
+import BussinessForm from "../business";
 
 // import 'Assets/css/font-awesome.min.css';
 
@@ -90,7 +91,10 @@ export default class App extends Component {
                           component={DefaultLayout}
                       /> */}
           {/* <Redirect exact from={`${match.url}/`} to={`${match.url}/login`} /> */}
-          <Route path="/Bussiness" component={Bussiness} />
+          {/* <Route path="/Bussiness" component={Bussiness} /> */}
+
+          <Route path="/Bussiness" component={BussinessForm} />
+
           <Route path="/lockscreen" component={LockScreen} />
           <Route path="/applyjob" component={ApplyJobs} />
 

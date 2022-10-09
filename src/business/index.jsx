@@ -32,7 +32,7 @@ const formpage = [
     header: `Online Presence`,
   },
 ];
-const index = () => {
+const BussinessForm = () => {
   const [step, setStep] = useState(0);
   console.log(step);
   return (
@@ -70,4 +70,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default BussinessForm;

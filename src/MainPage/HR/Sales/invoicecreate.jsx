@@ -668,7 +668,15 @@ const Invoicecreate = () => {
                 <button className="btn btn-primary submit-btn m-r-10">
                   Save &amp; Send
                 </button>
+<<<<<<< HEAD
                 <button className="btn btn-primary submit-btn">Save</button>
+=======
+                <Link to={"/app/sales/invoice-template"}>
+                  <button className="btn btn-primary submit-btn">
+                    Preview
+                  </button>
+                </Link>
+>>>>>>> 37cce830de51ed1f0878d28580fdee0556dd8c27
               </div>
             </form>
           </div>

@@ -48,18 +48,21 @@ const Loginpage = (props) => {
   const onSubmit = (data) => {
     // console.log("data", data);
 
-    axios.post(apis.loginUser, {
-      email: data.email,
-      password: data.password
-    }).then(data => {
-      // console.log(data.data.data);
-      localStorage.setItem('token', data.data.data);
-      window.location.href = "/"
-    }).catch(error => {
-      setError("password", {
-        message: error.response.data.data,
+    axios
+      .post(apis.loginUser, {
+        email: data.email,
+        password: data.password,
+      })
+      .then((data) => {
+        // console.log(data.data.data);
+        localStorage.setItem("token", data.data.data);
+        window.location.href = "/";
+      })
+      .catch((error) => {
+        setError("password", {
+          message: error.response.data.data,
+        });
       });
-    })
 
     // if (data.password != "123456") {
     //   setError("password", {
@@ -106,8 +109,9 @@ const Loginpage = (props) => {
                       control={control}
                       render={({ field: { value, onChange } }) => (
                         <input
-                          className={`form-control  ${errors?.email ? "error-input" : ""
-                            }`}
+                          className={`form-control  ${
+                            errors?.email ? "error-input" : ""
+                          }`}
                           type="text"
                           value={value}
                           onChange={onChange}
@@ -136,16 +140,18 @@ const Loginpage = (props) => {
                         <div className="pass-group">
                           <input
                             type={eye ? "password" : "text"}
-                            className={`form-control  ${errors?.password ? "error-input" : ""
-                              }`}
+                            className={`form-control  ${
+                              errors?.password ? "error-input" : ""
+                            }`}
                             value={value}
                             onChange={onChange}
                             autoComplete="false"
                           />
                           <span
                             onClick={onEyeClick}
-                            className={`fa toggle-password" ${eye ? "fa-eye-slash" : "fa-eye"
-                              }`}
+                            className={`fa toggle-password" ${
+                              eye ? "fa-eye-slash" : "fa-eye"
+                            }`}
                           />
                         </div>
                       )}

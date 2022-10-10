@@ -70,7 +70,7 @@ const Registrationpage = (props) => {
   const onSubmit = (data) => {
     console.log("data", data);
 
-    if (data.password != "123456") {
+    if (data.password != data.repeatPassword) {
       setError("password", {
         message: "password is mismatch",
       });
@@ -92,7 +92,7 @@ const Registrationpage = (props) => {
           setAxiosError(error.response.data.data);
         });
       clearErrors("password");
-      // props.history.push("Bussiness");
+      props.history.push("Bussiness");
     }
   };
   const onEyeClick = () => {

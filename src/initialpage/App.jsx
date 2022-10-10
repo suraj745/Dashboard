@@ -92,8 +92,8 @@ export default class App extends Component {
                       /> */}
           {/* <Redirect exact from={`${match.url}/`} to={`${match.url}/login`} /> */}
           {/* <Route path="/Bussiness" component={Bussiness} /> */}
-
-          <Route path="/Bussiness" component={BussinessForm} />
+          {/* 
+          <Route path="/Bussiness" component={BussinessForm} /> */}
 
           <Route path="/lockscreen" component={LockScreen} />
           <Route path="/applyjob" component={ApplyJobs} />
@@ -117,6 +117,7 @@ export default class App extends Component {
           <Route path="/forgotpassword" component={ForgotPassword} />
           <Route path="/register" component={RegistrationPage} />
           <Route path="/otp" component={OTP} />
+          <Route path="/Bussiness" component={BussinessForm} />
         </Switch>
       );
     }

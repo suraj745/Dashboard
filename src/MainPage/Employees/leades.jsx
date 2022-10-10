@@ -33,13 +33,13 @@ const Leads = () => {
 
   // 3. Create out useEffect function
   useEffect(() => {
-    fetch(`http://localhost:5001/api/lead/getAllClient`)
+    fetch(`https://backend112.herokuapp.com/api/lead/getAllClient`)
       .then((response) => response.json())
       // 4. Setting *dogImage* to the image url that we received from the response above
       .then((data) => setlead(data.data));
   }, []);
   useEffect(() => {
-    fetch(`http://localhost:5001/api/lead/getAll`)
+    fetch(`https://backend112.herokuapp.com/api/lead/getAll`)
       .then((response) => response.json())
       // 4. Setting *dogImage* to the image url that we received from the response above
       .then((data) => setData(data.data));

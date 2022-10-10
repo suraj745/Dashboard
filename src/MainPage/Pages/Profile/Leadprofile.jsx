@@ -16,7 +16,9 @@ import {
 const Leadprofile = ({ match }) => {
   let [Client, setClient] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:5001/api/lead/getSingle/${match.params.clientid}`)
+    fetch(
+      `https://backend112.herokuapp.com/api/lead/getSingle/${match.params.clientid}`
+    )
       .then((response) => response.json())
       // 4. Setting *dogImage* to the image url that we received from the response above
       .then((data) => setClient(data.data));

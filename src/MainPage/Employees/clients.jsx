@@ -37,7 +37,7 @@ const Clients = () => {
 
   // 3. Create out useEffect function
   useEffect(() => {
-    fetch(`http://localhost:5001/api/client/getAll`)
+    fetch(`https://backend112.herokuapp.com/api/client/getAll`)
       .then((response) => response.json())
       // 4. Setting *dogImage* to the image url that we received from the response above
       .then((data) => setDogImage(data.data));
@@ -53,13 +53,16 @@ const Clients = () => {
   const onSubmit = async (data) => {
     console.log(data);
     try {
-      const res = await fetch(`http://localhost:5001/api/client/add`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const res = await fetch(
+        `https://backend112.herokuapp.com/api/client/add`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
       const data2 = await res.json();
     } catch (error) {

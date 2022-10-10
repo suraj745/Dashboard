@@ -26,7 +26,9 @@ const ClientProfile = ({ match }) => {
 
   // 3. Create out useEffect function
   useEffect(() => {
-    fetch(`http://localhost:5001/api/client/getSingle/${match.params.clientid}`)
+    fetch(
+      `https://backend112.herokuapp.com/api/client/getSingle/${match.params.clientid}`
+    )
       .then((response) => response.json())
       // 4. Setting *dogImage* to the image url that we received from the response above
       .then((data) => setClient(data.data));

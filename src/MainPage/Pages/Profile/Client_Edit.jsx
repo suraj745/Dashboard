@@ -36,7 +36,9 @@ const Client_Edit = ({ match }) => {
   };
   let [Client, setClient] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:5001/api/client/getSingle/${match.params.clientid}`)
+    fetch(
+      `https://backend112.herokuapp.com/api/client/getSingle/${match.params.clientid}`
+    )
       .then((response) => response.json())
       .then((data) => setClient(data.data));
   }, []);

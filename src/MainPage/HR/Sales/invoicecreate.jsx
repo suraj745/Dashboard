@@ -13,6 +13,7 @@ import {
   Space,
   Tooltip,
 } from "antd";
+import InvoiceTemplate from "./InvoiceTemplate";
 
 const initialState = {
   Item: "",
@@ -25,26 +26,14 @@ const initialState = {
 const datalist = [];
 
 const onChange = (value) => {
-  // console.log(`selected ${value}`);
+  console.log(`selected ${value}`);
 };
 
 const onSearch = (value) => {
-  // console.log("search:", value);
+  console.log("search:", value);
 };
 
 const { Option } = Select;
-
-const props = {
-  action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
-
-  onChange({ file, fileList }) {
-    if (file.status !== "uploading") {
-      // console.log(file, fileList);
-    }
-  },
-
-  defaultFileList: [],
-};
 
 const row = [initialState];
 const reducer = (state, action) => {
@@ -110,6 +99,32 @@ const Invoicecreate = () => {
       amount: "",
     },
   ]);
+
+  const [clientInfo, setClientInfo] = useState({
+    invoiceNo: "",
+    client: "",
+    project: "",
+    email: "",
+    clientAddress: "",
+    billingAddress: "",
+    invoiceDate: "",
+    dueDate: "",
+    signature: "",
+  });
+
+  console.log("client_info", clientInfo);
+
+  const props = {
+    action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
+
+    onChange({ file, fileList }) {
+      if (file.status !== "uploading") {
+        setClientInfo({ ...clientInfo, signature: fileList });
+      }
+    },
+
+    defaultFileList: [],
+  };
 
   // const cgst = formvalue[0].gst / 2;
   // formvalue[0].cgst = cgst;
@@ -224,8 +239,14 @@ const Invoicecreate = () => {
                     </label>
                     <input
                       className="form-control"
-                      value={"A00001"}
                       type="text"
+                      value={clientInfo.invoiceNo}
+                      onChange={(e) => {
+                        setClientInfo({
+                          ...clientInfo,
+                          invoiceNo: e.target.value,
+                        });
+                      }}
                     />
                   </div>
                 </div>
@@ -234,7 +255,16 @@ const Invoicecreate = () => {
                     <label>
                       Client <span className="text-danger">*</span>
                     </label>
-                    <select className="select">
+                    <select
+                      className="select"
+                      value={clientInfo.client}
+                      onChange={(e) => {
+                        setClientInfo({
+                          ...clientInfo,
+                          client: e.target.value,
+                        });
+                      }}
+                    >
                       <option>Please Select</option>
                       <option>Barry Cuda</option>
                       <option>Tressa Wexler</option>
@@ -246,7 +276,16 @@ const Invoicecreate = () => {
                     <label>
                       Project <span className="text-danger">*</span>
                     </label>
-                    <select className="select">
+                    <select
+                      className="select"
+                      value={clientInfo.project}
+                      onChange={(e) => {
+                        setClientInfo({
+                          ...clientInfo,
+                          project: e.target.value,
+                        });
+                      }}
+                    >
                       <option>Select Project</option>
                       <option>Office Management</option>
                       <option>Project Management</option>
@@ -256,7 +295,17 @@ const Invoicecreate = () => {
                 <div className="col-sm-6 col-md-3">
                   <div className="form-group">
                     <label>Email</label>
-                    <input className="form-control" type="email" />
+                    <input
+                      className="form-control"
+                      type="email"
+                      value={clientInfo.email}
+                      onChange={(e) => {
+                        setClientInfo({
+                          ...clientInfo,
+                          email: e.target.value,
+                        });
+                      }}
+                    />
                   </div>
                 </div>
                 {/* <div className="col-sm-6 col-md-3">
@@ -276,8 +325,13 @@ const Invoicecreate = () => {
                     <textarea
                       className="form-control"
                       rows={3}
-                      defaultValue={""}
-                      value={"delhi"}
+                      value={clientInfo.clientAddress}
+                      onChange={(e) => {
+                        setClientInfo({
+                          ...clientInfo,
+                          clientAddress: e.target.value,
+                        });
+                      }}
                     />
                   </div>
                 </div>
@@ -287,7 +341,13 @@ const Invoicecreate = () => {
                     <textarea
                       className="form-control"
                       rows={3}
-                      defaultValue={""}
+                      value={clientInfo.billingAddress}
+                      onChange={(e) => {
+                        setClientInfo({
+                          ...clientInfo,
+                          billingAddress: e.target.value,
+                        });
+                      }}
                     />
                   </div>
                 </div>
@@ -300,6 +360,13 @@ const Invoicecreate = () => {
                       <input
                         className="form-control datetimepicker"
                         type="date"
+                        value={clientInfo.invoiceDate}
+                        onChange={(e) => {
+                          setClientInfo({
+                            ...clientInfo,
+                            invoiceDate: e.target.value,
+                          });
+                        }}
                       />
                     </div>
                   </div>
@@ -313,6 +380,13 @@ const Invoicecreate = () => {
                       <input
                         className="form-control datetimepicker"
                         type="date"
+                        value={clientInfo.dueDate}
+                        onChange={(e) => {
+                          setClientInfo({
+                            ...clientInfo,
+                            dueDate: e.target.value,
+                          });
+                        }}
                       />
                     </div>
                   </div>
@@ -664,17 +738,13 @@ const Invoicecreate = () => {
                   </div>
                 </div>
               </div>
-              <div className="submit-section">
-                <button className="btn btn-primary submit-btn m-r-10">
-                  Save &amp; Send
-                </button>
-                <button className="btn btn-primary submit-btn">Save</button>
-              </div>
             </form>
           </div>
         </div>
       </div>
       {/* /Page Content */}
+
+      <InvoiceTemplate formData={...clientInfo} table={[...formvalue]}/>
     </div>
   );
 };

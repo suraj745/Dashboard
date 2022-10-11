@@ -744,7 +744,7 @@ const Invoicecreate = () => {
       </div>
       {/* /Page Content */}
 
-      <InvoiceTemplate formData={...clientInfo} table={[...formvalue]}/>
+      <InvoiceTemplate formData={...clientInfo} getCalc={[...formvalue]} />
     </div>
   );
 };

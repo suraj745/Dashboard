@@ -2,7 +2,7 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import React from "react";
 
-const InvoiceTemplate = ({ formData, gstCalc }) => {
+const InvoiceTemplate = ({ formData, getCalc }) => {
   const downloadInvoice = () => {
     html2canvas(document.querySelector("#invoiceCapture")).then((canvas) => {
       const imgData = canvas.toDataURL("image/png", 1.0);
@@ -22,7 +22,7 @@ const InvoiceTemplate = ({ formData, gstCalc }) => {
     });
   };
 
-  console.log("formData", formData);
+  console.log("formData", formData, "getCalc", getCalc);
   return (
     <>
       <section

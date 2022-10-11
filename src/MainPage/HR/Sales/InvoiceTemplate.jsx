@@ -222,65 +222,69 @@ const InvoiceTemplate = ({ formData, getCalc }) => {
                 </tr>
               </thead>
               <tbody>
-                <tr scope="row">
-                  <td
-                    style={{
-                      borderRight: "2px solid black",
-                      borderBottom: "none",
-                    }}
-                  >
-                    1
-                  </td>
-                  <td
-                    style={{
-                      borderRight: "2px solid black",
-                      borderBottom: "none",
-                    }}
-                  >
-                    Soling Stone 5-8"{" "}
-                  </td>
-                  <td
-                    style={{
-                      borderRight: "2px solid black",
-                      borderBottom: "none",
-                    }}
-                  >
-                    25169020
-                  </td>
-                  <td
-                    style={{
-                      borderRight: "2px solid black",
-                      borderBottom: "none",
-                    }}
-                  >
-                    tonne
-                  </td>
-                  <td
-                    style={{
-                      borderRight: "2px solid black",
-                      borderBottom: "none",
-                    }}
-                  >
-                    {" "}
-                    32.23
-                  </td>
-                  <td
-                    style={{
-                      borderRight: "2px solid black",
-                      borderBottom: "none",
-                    }}
-                  >
-                    ₹ 595.00
-                  </td>
-                  <td
-                    style={{
-                      borderRight: "none",
-                      borderBottom: "none",
-                    }}
-                  >
-                    ₹ 19,176.85
-                  </td>
-                </tr>
+                {getCalc.map((value, index) => {
+                  return (
+                    <tr scope="row">
+                      <td
+                        style={{
+                          borderRight: "2px solid black",
+                          borderBottom: "none",
+                        }}
+                      >
+                        {index + 1}
+                      </td>
+                      <td
+                        style={{
+                          borderRight: "2px solid black",
+                          borderBottom: "none",
+                        }}
+                      >
+                        {value.item}
+                      </td>
+                      <td
+                        style={{
+                          borderRight: "2px solid black",
+                          borderBottom: "none",
+                        }}
+                      >
+                        25169020
+                      </td>
+                      <td
+                        style={{
+                          borderRight: "2px solid black",
+                          borderBottom: "none",
+                        }}
+                      >
+                        tonne
+                      </td>
+                      <td
+                        style={{
+                          borderRight: "2px solid black",
+                          borderBottom: "none",
+                        }}
+                      >
+                        {" "}
+                        32.23
+                      </td>
+                      <td
+                        style={{
+                          borderRight: "2px solid black",
+                          borderBottom: "none",
+                        }}
+                      >
+                        ₹ 595.00
+                      </td>
+                      <td
+                        style={{
+                          borderRight: "none",
+                          borderBottom: "none",
+                        }}
+                      >
+                        ₹ 19,176.85
+                      </td>
+                    </tr>
+                  );
+                })}
 
                 <tr scope="row">
                   <td
@@ -289,67 +293,7 @@ const InvoiceTemplate = ({ formData, getCalc }) => {
                       borderBottom: "none",
                     }}
                   >
-                    2
-                  </td>
-                  <td
-                    style={{
-                      borderRight: "2px solid black",
-                      borderBottom: "none",
-                    }}
-                  >
-                    Soling Stone 5-8"{" "}
-                  </td>
-                  <td
-                    style={{
-                      borderRight: "2px solid black",
-                      borderBottom: "none",
-                    }}
-                  >
-                    25169020
-                  </td>
-                  <td
-                    style={{
-                      borderRight: "2px solid black",
-                      borderBottom: "none",
-                    }}
-                  >
-                    tonne
-                  </td>
-                  <td
-                    style={{
-                      borderRight: "2px solid black",
-                      borderBottom: "none",
-                    }}
-                  >
-                    {" "}
-                    32.23
-                  </td>
-                  <td
-                    style={{
-                      borderRight: "2px solid black",
-                      borderBottom: "none",
-                    }}
-                  >
-                    ₹ 595.00
-                  </td>
-                  <td
-                    style={{
-                      borderRight: "none",
-                      borderBottom: "none",
-                    }}
-                  >
-                    ₹ 19,176.85
-                  </td>
-                </tr>
-
-                <tr scope="row">
-                  <td
-                    style={{
-                      borderRight: "2px solid black",
-                      borderBottom: "none",
-                    }}
-                  >
-                    <span style={{ opacity: "0" }}>1</span>
+                    <span style={{ opacity: "0" }}></span>
                   </td>
                   <td
                     style={{

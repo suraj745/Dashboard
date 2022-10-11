@@ -35,6 +35,18 @@ const onSearch = (value) => {
 
 const { Option } = Select;
 
+const props = {
+  action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
+
+  onChange({ file, fileList }) {
+    if (file.status !== "uploading") {
+      // console.log(file, fileList);
+    }
+  },
+
+  defaultFileList: [],
+};
+
 const row = [initialState];
 const reducer = (state, action) => {
   switch (action.type) {
@@ -743,8 +755,7 @@ const Invoicecreate = () => {
         </div>
       </div>
       {/* /Page Content */}
-
-      <InvoiceTemplate formData={...clientInfo} getCalc={[...formvalue]} />
+      <InvoiceTemplate formData={{ ...clientInfo }} getCalc={[...formvalue]} />
     </div>
   );
 };

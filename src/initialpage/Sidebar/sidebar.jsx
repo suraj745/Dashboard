@@ -66,16 +66,16 @@ const Sidebar = (props) => {
                         Admin Dashboard
                       </Link>
                     </li>
-                    <li>
+                    {/* <li>
                       <Link
                         className={
                           pathname.includes("main/employee-") ? "active" : ""
                         }
                         to="/app/main/employee-dashboard"
                       >
-                        Employee Dashboard
+                        Client Dashboard
                       </Link>
-                    </li>
+                    </li> */}
                   </ul>
                 ) : (
                   ""
@@ -459,7 +459,7 @@ const Sidebar = (props) => {
                   ""
                 )}
               </li> */}
-              <li className="submenu">
+              {/* <li className="submenu">
                 <a
                   href="#"
                   className={isSideMenu == "payroll" ? "subdrop" : ""}
@@ -505,13 +505,13 @@ const Sidebar = (props) => {
                 ) : (
                   ""
                 )}
-              </li>
-              <li className={pathname.includes("policies") ? "active" : ""}>
+              </li> */}
+              {/* <li className={pathname.includes("policies") ? "active" : ""}>
                 <Link to="/app/hr/policies">
                   <i className="la la-file-pdf-o" /> <span>Policies</span>
                 </Link>
-              </li>
-              <li className="submenu">
+              </li> */}
+              {/* <li className="submenu">
                 <a
                   href="#"
                   className={isSideMenu == "reports" ? "subdrop" : ""}
@@ -641,11 +641,11 @@ const Sidebar = (props) => {
                 ) : (
                   ""
                 )}
-              </li>
-              <li className="menu-title">
+              </li> */}
+              {/* <li className="menu-title">
                 <span>Performance</span>
-              </li>
-              <li className="submenu">
+              </li> */}
+              {/* <li className="submenu">
                 <a
                   href="#"
                   className={isSideMenu == "performance" ? "subdrop" : ""}
@@ -695,8 +695,8 @@ const Sidebar = (props) => {
                 ) : (
                   ""
                 )}
-              </li>
-              <li className="submenu">
+              </li> */}
+              {/* <li className="submenu">
                 <a
                   href="#"
                   className={isSideMenu == "goals" ? "subdrop" : ""}
@@ -733,8 +733,8 @@ const Sidebar = (props) => {
                 ) : (
                   ""
                 )}
-              </li>
-              <li className="submenu">
+              </li> */}
+              {/* <li className="submenu">
                 <a
                   href="#"
                   className={isSideMenu == "training" ? "subdrop" : ""}
@@ -782,13 +782,13 @@ const Sidebar = (props) => {
                 ) : (
                   ""
                 )}
-              </li>
-              <li className={pathname.includes("promotion") ? "active" : ""}>
+              </li> */}
+              {/* <li className={pathname.includes("promotion") ? "active" : ""}>
                 <Link to="/app/performance/promotion">
                   <i className="la la-bullhorn" /> <span>Promotion</span>
                 </Link>
-              </li>
-              <li className={pathname.includes("resignation") ? "active" : ""}>
+              </li> */}
+              {/* <li className={pathname.includes("resignation") ? "active" : ""}>
                 <Link to="/app/performance/resignation">
                   <i className="la la-external-link-square" />{" "}
                   <span>Resignation</span>
@@ -806,8 +806,8 @@ const Sidebar = (props) => {
                 <Link to="/app/administrator/assets">
                   <i className="la la-object-ungroup" /> <span>Assets</span>
                 </Link>
-              </li>
-              <li className="submenu">
+              </li> */}
+              {/* <li className="submenu">
                 <a
                   href="#"
                   className={isSideMenu == "jobs" ? "subdrop" : ""}
@@ -962,8 +962,8 @@ const Sidebar = (props) => {
                 ) : (
                   ""
                 )}
-              </li>
-              <li
+              </li> */}
+              {/* <li
                 className={pathname.includes("knowledgebase") ? "active" : ""}
               >
                 <Link to="/app/administrator/knowledgebase">
@@ -991,8 +991,8 @@ const Sidebar = (props) => {
               </li>
               <li className="menu-title">
                 <span>Pages</span>
-              </li>
-              <li className="submenu">
+              </li> */}
+              {/* <li className="submenu">
                 <a
                   href="#"
                   className={isSideMenu == "profile" ? "subdrop" : ""}
@@ -1056,8 +1056,8 @@ const Sidebar = (props) => {
                 ) : (
                   ""
                 )}
-              </li>
-              <li className="submenu">
+              </li> */}
+              {/* <li className="submenu">
                 <a
                   href="#"
                   className={isSideMenu == "authentication" ? "subdrop" : ""}
@@ -1091,8 +1091,8 @@ const Sidebar = (props) => {
                 ) : (
                   ""
                 )}
-              </li>
-              <li className="submenu">
+              </li> */}
+              {/* <li className="submenu">
                 <a
                   href="#"
                   className={isSideMenu == "error pages" ? "subdrop" : ""}
@@ -1117,8 +1117,8 @@ const Sidebar = (props) => {
                 ) : (
                   ""
                 )}
-              </li>
-              <li className="submenu">
+              </li> */}
+              {/* <li className="submenu">
                 <a
                   href="#"
                   className={isSideMenu == "subscriptions" ? "subdrop" : ""}
@@ -1171,8 +1171,8 @@ const Sidebar = (props) => {
                 ) : (
                   ""
                 )}
-              </li>
-              <li className="submenu">
+              </li> */}
+              {/* <li className="submenu">
                 <a
                   href="#"
                   className={isSideMenu == "pages" ? "subdrop" : ""}
@@ -1244,16 +1244,16 @@ const Sidebar = (props) => {
                 ) : (
                   ""
                 )}
-              </li>
-              <li className="menu-title">
+              </li> */}
+              {/* <li className="menu-title">
                 <span>UI Interface</span>
               </li>
               <li>
                 <Link to="/ui-components">
                   <i className="la la-puzzle-piece" /> <span>Components</span>
                 </Link>
-              </li>
-              <li className="submenu">
+              </li> */}
+              {/* <li className="submenu">
                 <a
                   href="#"
                   className={isSideMenu == "forms" ? "subdrop" : ""}
@@ -1333,8 +1333,8 @@ const Sidebar = (props) => {
                 ) : (
                   ""
                 )}
-              </li>
-              <li className="submenu">
+              </li> */}
+              {/* <li className="submenu">
                 <Link
                   to="/app/ui-interface/tables/basic"
                   className={isSideMenu == "tables" ? "subdrop" : ""}
@@ -1371,8 +1371,8 @@ const Sidebar = (props) => {
                 ) : (
                   ""
                 )}
-              </li>
-              <li className="menu-title">
+              </li> */}
+              {/* <li className="menu-title">
                 <span>Extras</span>
               </li>
               <li>
@@ -1385,8 +1385,8 @@ const Sidebar = (props) => {
                   <i className="la la-info" /> <span>Change Log</span>{" "}
                   <span className="badge badge-primary ml-auto">v3.4</span>
                 </a>
-              </li>
-              <li className="submenu">
+              </li> */}
+              {/* <li className="submenu">
                 <a
                   href="#"
                   className={isSideMenu == "multi Level" ? "subdrop" : ""}
@@ -1471,7 +1471,7 @@ const Sidebar = (props) => {
                 ) : (
                   ""
                 )}
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>
